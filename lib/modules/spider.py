@@ -11,10 +11,17 @@ class Spider:
     def __init__(self, root, output=False):
         self.root = root
         self.loot = { }
+        self.pagesToVisit = [self.root]
         self.output = output
 
+    def add(self, link):
+        'Add a link to visit'
+        self.pagesToVisit += [link]
+
     def run(self):
-        pagesToVisit = [self.root]
+        'Run module'
+
+        pagesToVisit = self.pagesToVisit
         parser = LinkParser()
         self.loot['links'] = []
 
@@ -72,7 +79,16 @@ if __name__ == "__main__":
     parser.add_argument('root', metavar='url', type=str,
                     help='URL of the web challenge')
 
+    parser.add_argument("--linkFile", help="File containing additional links to visit")
+
     args = parser.parse_args()
+
     module = Spider(args.root, True)
+
+    if args.linkFile:
+        with open(args.linkFile) as f:
+            for line in f.readlines():
+                module.add(line)
+
     module.run()
 
