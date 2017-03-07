@@ -34,7 +34,7 @@ class Dirb:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='This is a template module')
+    parser = argparse.ArgumentParser(description='Directory bruteforcer module')
     parser.add_argument('root', metavar='root', type=str,
                     help='URL of the web challenge')
 
