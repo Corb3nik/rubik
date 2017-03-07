@@ -1,0 +1,2 @@
+web: bundle exec rails server
+postgresql: postgres -D /usr/local/var/postgres

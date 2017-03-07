@@ -1,24 +1,28 @@
-# README
+# rubik
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## requirements
 
-Things you may want to cover:
+- postgresql 9.6.2
+- ruby
+- RubyGems
+- gem bundler
 
-* Ruby version
+## install
 
-* System dependencies
+Install dependencies:
 
-* Configuration
+```bash
+bundle install
+```
 
-* Database creation
+## create databases
 
-* Database initialization
+```bash
+rake db:create
+```
 
-* How to run the test suite
+### running the services
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+bundle exec foreman start -f Procfile.dev
+```
