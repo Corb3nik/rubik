@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Hello from './components/Hello.vue'
+import projects from './components/projects.vue'
 
 Vue.use(VueRouter)
 
 const routes = [{
   path: '/',
-  component: Hello
+  component: projects
 }]
 
 export default new VueRouter({
