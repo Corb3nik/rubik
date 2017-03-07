@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import argparse
 
@@ -14,9 +14,9 @@ class Template:
         self.loot['template'] = "TEMPLATE"
 
         if self.output:
-            print self.loot
+            print(self.loot)
 
-        return self.loot
+        return(self.loot)
 
 
 if __name__ == "__main__":
