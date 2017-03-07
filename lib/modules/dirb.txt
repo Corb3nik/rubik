@@ -1,0 +1,7 @@
+flag.txt
+.git
+.svn
+.hg
+admin
+database.sql
+robots.txt

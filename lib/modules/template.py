@@ -11,6 +11,7 @@ class Template:
         self.output = output
 
     def run(self):
+        'Run module'
         self.loot['template'] = "TEMPLATE"
 
         if self.output:
