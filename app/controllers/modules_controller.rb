@@ -1,4 +1,5 @@
 class ModulesController < ApplicationController
+  before_action :load_params
 
   DIRB_FILE = Rails.root.join('lib', 'modules', 'dirb.txt').to_s.freeze()
 
@@ -13,6 +14,6 @@ class ModulesController < ApplicationController
   end
 
   def load_params
-    @project = Project.find(params[:id])
+    @project = Project.find(params[:project_id])
   end
 end
