@@ -5,13 +5,27 @@ class ModulesController < ApplicationController
 
   def spider
     s = SpiderService.new({ root: @project.root })
-    render json: s.run()
+
+    json = JSON.parse s.run()
+    json['links'].each do |link|
+      @project.spiders.find_or_create_by(url: link)
+    end
+
+    render json: json
   end
 
   def dirb
     s = DirbService.new({ root: @project.root, wordlist: DIRB_FILE })
-    render json: s.run()
+
+    json = JSON.parse s.run()
+    json['links'].each do |link|
+      @project.dirbs.find_or_create_by(url: link)
+    end
+
+    render json: json
   end
+
+  private
 
   def load_params
     @project = Project.find(params[:project_id])

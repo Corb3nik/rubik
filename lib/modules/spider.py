@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from urllib.request import urlopen
 from urllib import parse
 import argparse
+import json
 
 class Spider:
     'Web crawler module'
@@ -39,7 +40,7 @@ class Spider:
                 pass
 
         if self.output:
-            print(self.loot)
+            print(json.dumps(self.loot))
 
         return self.loot
 
