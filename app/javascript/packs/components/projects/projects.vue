@@ -1,40 +1,44 @@
 <template>
-  <div class="projects-list">
-    <h1>Projects</h1>
-    <loading v-if="loading" />
-    <errors v-if="has_errors" :errors="errors"/>
-    <form v-on:submit.prevent="on_submit">
-      <div>
-        <label for="name">Name:</label>
-        <input type="text" v-model="name" name="name" placeholder="Ex: CTF xyz">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-4">
+      <sidebar :projects="projects"/>
+    </div>
+
+    <!-- Create project -->
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="projects-list">
+        <h1>Projects</h1>
+        <loading v-if="loading" />
+        <errors v-if="has_errors" :errors="errors"/>
+        <form v-on:submit.prevent="on_submit">
+            <input class="form-control" type="text" v-model="name" name="name" placeholder="Project Name">
+            <input class="form-control" type="text" v-model="root" name="root" placeholder="Root URL">
+          <input class="btn btn-primary" type="submit" value="Create project">
+        </form>
       </div>
-      <div>
-        <label for="root">Root:</label>
-        <input type="text" v-model="root" name="root" placeholder="Ex: http://ctf-xyz.com:3000/challenges-2">
-      </div>
-      <input type="submit" name="Create project">
-    </form>
-    <projects-list-item
-      v-for="project in projects"
-      :project="project">
-    </projects-list-item>
+    </div>
+    <div class="col-md-2"></div>
   </div>
+
 </template>
 
 <script>
 import VueRouter from 'vue-router'
-import * as api from '../api/projects.js'
-import ProjectsListItem from './projects-list-item.vue'
-import Errors from './errors.vue'
-import Loading from './loading.vue'
+import Sidebar from './sidebar.vue'
+import * as api from '../../api/projects.js'
+import Errors from '../shared/errors.vue'
+import Loading from '../shared/loading.vue'
 
 export default {
   name: 'projects',
 
   components: {
-    ProjectsListItem,
     Errors,
-    Loading
+    Loading,
+    Sidebar
   },
 
   data () {

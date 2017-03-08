@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Project from './components/project.vue'
-import Projects from './components/projects.vue'
+import Project from './components/projects/project.vue'
+import projects from './components/projects/projects.vue'
 
 Vue.use(VueRouter)
 
@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'projects',
-    component: Projects
+    component: projects
   },
   {
     path: '/projects/:id',
@@ -20,10 +20,10 @@ const routes = [
   {
     path: '*',
     redirect: '/projects'
-  },
+  }
 ]
 
 export default new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes
 })
