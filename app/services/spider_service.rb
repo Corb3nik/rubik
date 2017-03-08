@@ -4,7 +4,6 @@ class SpiderService
 
   def initialize(params)
     @root = Shellwords.escape(params[:root])
-    @output = params[:output]
   end
 
   def run()
