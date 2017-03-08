@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 
 const store = new Vuex.Store({
-  state: {},
+  state: {
+    projects: []
+  },
   mutations: {},
   actions: {},
   getters: {},
