@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import projects from './components/projects.vue'
+import Project from './components/project.vue'
+import Projects from './components/projects.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    component: projects
-  }
+    name: 'projects',
+    component: Projects
+  },
+  {
+    path: '/projects/:id',
+    name: 'project',
+    component: Project,
+    props: true
+  },
+  {
+    path: '*',
+    redirect: '/projects'
+  },
 ]
 
 export default new VueRouter({
