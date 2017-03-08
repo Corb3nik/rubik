@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import requests
 from urllib import parse
+import requests
 import argparse
+import json
 
 class Dirb:
     'Directory Buster module'
@@ -28,9 +29,9 @@ class Dirb:
                 self.loot['links'] += [url]
 
         if self.output:
-            print(self.loot)
+            print(json.dumps(self.loot))
 
-        return(self.loot)
+        return self.loot
 
 
 if __name__ == "__main__":
