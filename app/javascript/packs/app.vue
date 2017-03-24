@@ -1,24 +1,33 @@
 <template>
-  <div class="container-fluid">
-    <router-view></router-view>
+  <div class="app">
+    <nav-bar></nav-bar>
+    <div class="container app-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import NavBar from './components/shared/nav-bar.vue'
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+// import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Globally register components
+Vue.use(BootstrapVue);
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    NavBar
+  }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #2c3e50;
-  margin-top: 60px;
+.app-content {
+  margin-top: 1em;
 }
 </style>

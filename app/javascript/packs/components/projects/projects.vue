@@ -1,33 +1,44 @@
 <template>
   <div class="row">
 
-    <!-- Sidebar -->
     <div class="col-md-4">
-      <sidebar :projects="projects"/>
+      <h1>Projects</h1>
+      <projects-list :projects="projects"></projects-list>
     </div>
 
-    <!-- Create project -->
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
-      <div class="projects-list">
-        <h1>Projects</h1>
+    <div class="col-md-4 offset-md-2">
+        <h2>New Project</h2>
         <loading v-if="loading" />
         <errors v-if="has_errors" :errors="errors"/>
         <form v-on:submit.prevent="on_submit">
-            <input class="form-control" type="text" v-model="name" name="name" placeholder="Project Name">
-            <input class="form-control" type="text" v-model="root" name="root" placeholder="Root URL">
-          <input class="btn btn-primary" type="submit" value="Create project">
+          <b-form-input
+            class="form-control"
+            type="text"
+            v-model="name"
+            name="name"
+            placeholder="Project Name">
+          </b-form-input>
+          <b-form-input
+            class="form-control"
+            type="text"
+            v-model="root"
+            name="root"
+            placeholder="Root URL">
+          </b-form-input>
+          <!-- TODO find submit button -->
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="Create project">
         </form>
-      </div>
     </div>
-    <div class="col-md-2"></div>
-  </div>
 
+  </div>
 </template>
 
 <script>
 import VueRouter from 'vue-router'
-import Sidebar from './sidebar.vue'
+import ProjectsList from './projects-list.vue'
 import * as api from '../../api/projects.js'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
@@ -38,7 +49,7 @@ export default {
   components: {
     Errors,
     Loading,
-    Sidebar
+    ProjectsList
   },
 
   data () {
