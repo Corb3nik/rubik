@@ -3,7 +3,7 @@
     <ul
       v-for="(messages, attribute) in errors"
       class="errors-item">
-      {{attribute}}:
+        <span class="errors-item__attribute">{{attribute}}:</span>
       <li
         v-for="message in messages"
         class="errors-item__message">{{message}}</li>
@@ -35,6 +35,9 @@ export default {
 .errors-item {
   list-style-type: none;
   padding: 0;
+}
+.errors-item__attribute {
+  text-transform: capitalize;
 }
 .errors-item__message {
   padding-left: 10px;
