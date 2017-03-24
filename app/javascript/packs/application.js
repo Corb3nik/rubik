@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       axios.defaults.headers.common['X-CSRF-Token'] = token;
     }
+      axios.defaults.headers.common['Accept'] = 'application/json';
   })()
 
 
