@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :dirb, controller: :modules
   end
 
+  resources :modules, only: [:index]
   root 'pages#index'
 
 end

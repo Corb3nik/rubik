@@ -1,7 +1,18 @@
 class ModulesController < ApplicationController
-  before_action :load_params
+  before_action :load_params, except: :index
 
   DIRB_FILE = Rails.root.join('lib', 'modules', 'dirb.txt').to_s.freeze()
+
+  def index
+    available_modules = {
+      modules: [
+        { name: "Directory Buster", slug: "dirb" },
+        { name: "Spider", slug: "spider" },
+      ]
+    }
+
+    render json: available_modules
+  end
 
   def spider
     s = SpiderService.new({ root: @project.root })
