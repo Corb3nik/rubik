@@ -3,7 +3,7 @@
     <b-list-group-item
       v-for="project in projects"
       :project="project"
-      :to="{ name: 'project', params: { id: project.id} }"
+      :to="{ name: 'project', params: { id: project.id } }"
       :key="project.key">
         {{ project.name }}
     </b-list-group-item>

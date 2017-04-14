@@ -96,7 +96,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 input[type=text] {
   width: 300px;
