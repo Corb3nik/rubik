@@ -5,7 +5,13 @@
           <project-sidebar :projectId="id" :modules="modules"></project-sidebar>
         </div>
         <div class="col-md-9">
-          Main page
+          <p v-if="!module">Dashboard</p>
+          <p v-if="module == 'dirb'">
+            <!-- <dirb></dirb> -->
+          </p>
+          <p v-if="module == 'spider'">
+            <!-- <spider></spider> -->
+          </p>
         </div>
       </div>
   </div>
@@ -18,7 +24,8 @@ import * as api from '../../api/modules.js'
 export default {
   name: 'project',
   props: {
-    id: { type: Number, require: true }
+    id: { type: Number, require: true },
+    module: { type: String, require: false }
   },
 
   components: {
