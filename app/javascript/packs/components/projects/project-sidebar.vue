@@ -1,13 +1,11 @@
 <template>
   <div class="project-sidebar">
-    <b-list-group>
-      <b-list-group-item
-        v-for="module in modules"
-        :module="module"
-        :to="{ name: 'project', params: { id: module.slug } }" class="list-group-item-info">
+    <div class="module-list" v-for="module in modules">
+      <b-button class="module-btn"
+        :to="{ name: 'project', params: { id: projectId, module: module.slug } }">
         {{ module.name }}
-      </b-list-group-item>
-    </b-list-group>
+      </b-button>
+    </div>
   </div>
 </template>
 
@@ -20,10 +18,14 @@ export default {
   props: {
     modules: {
       type: Array
+    },
+    projectId: {
+      type: Number
     }
   }
 }
 </script>
 
 <style>
+.module-btn { margin-bottom: 2%; width: 100%; }
 </style>

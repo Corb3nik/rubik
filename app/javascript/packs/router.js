@@ -12,7 +12,7 @@ const routes = [
     component: projects
   },
   {
-    path: '/projects/:id',
+    path: '/projects/:id/:module?',
     name: 'project',
     component: Project,
     props: true

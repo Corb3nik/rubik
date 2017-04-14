@@ -2,7 +2,7 @@
   <div class="project">
       <div class="row">
         <div class="col-md-3">
-          <project-sidebar :modules="modules"></project-sidebar>
+          <project-sidebar :projectId="id" :modules="modules"></project-sidebar>
         </div>
         <div class="col-md-9">
           Main page
