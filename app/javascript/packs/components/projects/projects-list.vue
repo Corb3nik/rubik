@@ -2,9 +2,8 @@
   <b-list-group>
     <b-list-group-item
       v-for="project in projects"
-      :project="project"
-      :to="{ name: 'project', params: { id: project.id } }"
-      :key="project.key">
+      :to="projectToLink(project)"
+      :key="project.id">
         {{ project.name }}
     </b-list-group-item>
   </b-list-group>
@@ -19,6 +18,11 @@ export default {
   props: {
     projects: {
       type: Array
+    }
+  },
+  methods: {
+    projectToLink: function (project) {
+      return "projects/" + project.id
     }
   }
 }

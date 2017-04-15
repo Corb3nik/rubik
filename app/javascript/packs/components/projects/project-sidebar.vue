@@ -1,8 +1,7 @@
 <template>
   <div class="project-sidebar">
     <div class="module-list" v-for="module in modules">
-      <b-button class="module-btn"
-        :to="{ name: 'project', params: { id: projectId, module: module.slug } }">
+      <b-button class="module-btn" :to="moduleToLink(module)">
         {{ module.name }}
       </b-button>
     </div>
@@ -20,7 +19,13 @@ export default {
       type: Array
     },
     projectId: {
-      type: Number
+      type: String,
+      require: true
+    }
+  },
+  methods: {
+    moduleToLink: function (module) {
+      return this.projectId + "/" + module.slug
     }
   }
 }
