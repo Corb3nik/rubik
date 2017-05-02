@@ -3,7 +3,7 @@
 
     <div class="col-md-4">
       <h1>Projects</h1>
-      <projects-list :projects="projects"></projects-list>
+      <project-list :projects="projects"></project-list>
     </div>
 
     <div class="col-md-4 offset-md-2">
@@ -25,7 +25,6 @@
             name="root"
             placeholder="Root URL">
           </b-form-input>
-          <!-- TODO find submit button -->
           <input
             class="btn btn-primary"
             type="submit"
@@ -38,18 +37,16 @@
 
 <script>
 import VueRouter from 'vue-router'
-import ProjectsList from './projects-list.vue'
 import * as api from '../../api/projects.js'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
+import ProjectList from './_list.vue'
 
 export default {
-  name: 'projects',
-
   components: {
     Errors,
     Loading,
-    ProjectsList
+    ProjectList
   },
 
   data () {

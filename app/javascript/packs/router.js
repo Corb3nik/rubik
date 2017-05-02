@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Project from './components/projects/project.vue'
-import Projects from './components/projects/projects.vue'
+import ProjectShow from './components/projects/show.vue'
+import ProjectIndex from './components/projects/index.vue'
 
 Vue.use(VueRouter)
 
@@ -9,12 +9,12 @@ const routes = [
   {
     path: '/',
     name: 'projects',
-    component: Projects
+    component: ProjectIndex
   },
   {
-    path: '/projects/:id/:module?',
+    path: '/projects/:id/',
     name: 'project',
-    component: Project,
+    component: ProjectShow,
     props: true
   },
   {
