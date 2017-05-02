@@ -2,11 +2,15 @@
   <div class="project">
       <div class="row">
         <div class="col-md-3">
-          <b-button class="module-btn" @click="currentView = 'dashboard'">
+          <b-button class="module-btn"
+            :class="{ 'active' : currentView == 'dashboard'}"
+            @click="currentView = 'dashboard'">
             Dashboard
           </b-button>
           <div class="module-list" v-for="module in modules">
-            <b-button class="module-btn" @click="currentView = module.slug">
+            <b-button class="module-btn"
+            :class="{ 'active' : currentView == module.slug}"
+            @click="currentView = module.slug">
               {{module.name}}
             </b-button>
           </div>
