@@ -7,8 +7,8 @@
               tag="button"
               class="module-btn btn btn-secondary btn-md"
               active-class="active"
-              :to="{ name: module, params: { id } }">
-              {{ module }}
+              :to="{ name: module.slug, params: { id } }">
+              {{ module.name }}
             </router-link>
           </div>
         </div>
@@ -35,9 +35,9 @@ export default {
   data () {
     return {
       modules: [
-        'dashboard',
-        'dirb',
-        'spider'
+        { name: "Dashboard", slug: "dashboard" },
+        { name: "Directory Buster", slug: "dirb" },
+        { name: "Spider", slug: "spider" },
       ]
     }
   }

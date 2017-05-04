@@ -6,6 +6,7 @@ class ModulesController < ApplicationController
   def index
     available_modules = {
       modules: [
+        { name: "Dashboard", slug: "dashboard" },
         { name: "Directory Buster", slug: "dirb" },
         { name: "Spider", slug: "spider" },
       ]
