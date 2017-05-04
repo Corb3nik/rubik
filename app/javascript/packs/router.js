@@ -1,21 +1,49 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Project from './components/projects/project.vue'
-import projects from './components/projects/projects.vue'
+import ProjectShow from './components/projects/show.vue'
+import ProjectIndex from './components/projects/index.vue'
+import Dashboard from './components/modules/dashboard.vue'
+import Dirb from './components/modules/dirb.vue'
+import Spider from './components/modules/spider.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'projects',
-    component: projects
+    redirect: { name: 'projects' }
   },
   {
-    path: '/projects/:id',
+    path: '/projects',
+    name: 'projects',
+    component: ProjectIndex
+  },
+  {
+    path: '/projects/:id/',
     name: 'project',
-    component: Project,
-    props: true
+    component: ProjectShow,
+    props: true,
+    redirect: { name: 'dashboard' },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        props: { default: true },
+        component: Dashboard
+      },
+      {
+        path: 'dirb',
+        name: 'dirb',
+        props: { default: true },
+        component: Dirb
+      },
+      {
+        path: 'spider',
+        name: 'spider',
+        props: { default: true },
+        component: Spider
+      }
+    ]
   },
   {
     path: '*',
