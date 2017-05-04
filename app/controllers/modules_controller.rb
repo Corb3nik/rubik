@@ -10,14 +10,13 @@ class ModulesController < ApplicationController
         { name: "Spider", slug: "spider" },
       ]
     }
-
     render json: available_modules
   end
 
   def spider
-    s = SpiderService.new({ root: @project.root })
+    spider = SpiderService.new({ root: @project.root })
 
-    json = JSON.parse s.run()
+    json = JSON.parse spider.run()
     json['links'].each do |link|
       @project.spiders.find_or_create_by(url: link)
     end
@@ -26,9 +25,9 @@ class ModulesController < ApplicationController
   end
 
   def dirb
-    s = DirbService.new({ root: @project.root, wordlist: DIRB_FILE })
+    dirb = DirbService.new({ root: @project.root, wordlist: DIRB_FILE })
 
-    json = JSON.parse s.run()
+    json = JSON.parse dirb.run()
     json['links'].each do |link|
       @project.dirbs.find_or_create_by(url: link)
     end
