@@ -14,6 +14,10 @@ class ModulesController < ApplicationController
     render json: available_modules
   end
 
+  def dashboard
+    render json: {}
+  end
+
   def spider
     spider = SpiderService.new({ root: @project.root })
 
