@@ -20,6 +20,6 @@ class DirbController < ModulesController
   end
 
   def index
-    render json: {}
+    render json: @project.dirbs
   end
 end
