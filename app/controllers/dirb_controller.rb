@@ -7,12 +7,19 @@ class DirbController < ModulesController
 
     json = JSON.parse dirb.run()
     json['links'].each do |link|
-      @project.dirbs.find_or_create_by(url: link)
+      url = link['url']
+      content_type = link['content-type']
+      @project.dirbs.find_or_create_by(url: url, 'content_type': content_type)
     end
 
     render json: json
   end
 
   def reset
+    render json: {}
+  end
+
+  def index
+    render json: {}
   end
 end

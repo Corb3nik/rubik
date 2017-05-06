@@ -18,6 +18,16 @@ class Dirb:
         'Add URI to list'
         self.URIs += [uri]
 
+    def parse_response(self, response):
+      url = response.url
+      content_type = ''
+      try:
+        content_type = response.headers['content-type']
+      except:
+        pass
+
+      return { "url" : url, "content-type": content_type }
+
     def run(self):
         'Run module'
         self.loot['links'] = []
@@ -25,8 +35,9 @@ class Dirb:
         for uri in self.URIs:
             url = parse.urljoin(self.root, uri)
             response = requests.get(url)
+
             if response.status_code != 404:
-                self.loot['links'] += [url]
+                self.loot['links'] += [self.parse_response(response)]
 
         if self.output:
             print(json.dumps(self.loot))
