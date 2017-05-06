@@ -6,5 +6,4 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Project.create([
-  { name: 'Mon site web vraiment awesome', root: 'http://159.203.173.168:10000/'}])
+Project.create([{ name: 'Site web #1', root: 'http://159.203.173.168:10000/'}])
