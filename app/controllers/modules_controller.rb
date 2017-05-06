@@ -29,17 +29,6 @@ class ModulesController < ApplicationController
     render json: json
   end
 
-  def dirb
-    dirb = DirbService.new({ root: @project.root, wordlist: DIRB_FILE })
-
-    json = JSON.parse dirb.run()
-    json['links'].each do |link|
-      @project.dirbs.find_or_create_by(url: link)
-    end
-
-    render json: json
-  end
-
   private
 
   def load_params
