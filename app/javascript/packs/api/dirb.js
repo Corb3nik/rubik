@@ -1,5 +1,13 @@
 import axios from 'axios'
 
-export function fetch_results(project_id) {
+export function fetch() {
   return axios.get('dirb')
+}
+
+export function reset() {
+  return axios.post('dirb/reset')
+}
+
+export function run() {
+  return axios.post('dirb/run')
 }

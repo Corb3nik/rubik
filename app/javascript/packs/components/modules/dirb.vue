@@ -64,10 +64,10 @@
           <div class="card-block">
             <div class="row">
               <div class="col-md-6 text-left">
-                <a href="#" class="btn btn-danger">Reset Results</a>
+                <button v-on:click="reset" class="btn btn-danger">Reset Results</button>
               </div>
               <div class="col-md-6 text-right">
-                <a href="#" class="btn btn-primary">Run</a>
+                <button v-on:click="run" class="btn btn-primary">Run</button>
               </div>
             </div>
           </div>
@@ -93,6 +93,10 @@ export default {
   watch: {
     links: function() {
       self = this
+      this.html_links = []
+      this.js_links = []
+      this.css_links = []
+      this.misc_links = []
       this.links.forEach(function (link) {
         var content_type = link.content_type
         if (content_type.includes("html"))
@@ -111,13 +115,28 @@ export default {
   methods: {
     urlToPath: function(url) {
       return (new URL(url)).pathname
+    },
+    fetch: function() {
+      api.fetch()
+        .then(response => {
+          this.links = response.data
+        })
+    },
+    reset: function() {
+      api.reset().
+        then(response => {
+          this.fetch()
+      })
+    },
+    run: function() {
+      api.run().
+        then(response => {
+          this.fetch()
+      })
     }
   },
   created () {
-    api.fetch_results()
-      .then(response => {
-        this.links = response.data
-      })
+    this.fetch()
   }
 }
 </script>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get :spider, controller: :modules
 
     get 'dirb', controller: :dirb, action: :index
-    get 'dirb/run', controller: :dirb, action: :run
+    post 'dirb/run', controller: :dirb, action: :run
     post 'dirb/reset', controller: :dirb, action: :reset
   end
 

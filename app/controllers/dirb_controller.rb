@@ -16,7 +16,8 @@ class DirbController < ModulesController
   end
 
   def reset
-    render json: {}
+    @project.dirbs.delete_all
+    render json: { status: :success }
   end
 
   def index
