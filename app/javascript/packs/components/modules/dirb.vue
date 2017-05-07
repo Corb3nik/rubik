@@ -8,6 +8,11 @@
               HTML
             </div>
             <div class="card-block">
+              <ul>
+                <li v-for="link in html_links">
+                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="card">
@@ -15,6 +20,11 @@
               JS
             </div>
             <div class="card-block">
+              <ul>
+                <li v-for="link in js_links">
+                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="card">
@@ -22,6 +32,11 @@
               CSS
             </div>
             <div class="card-block">
+              <ul>
+                <li v-for="link in css_links">
+                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="card">
@@ -29,6 +44,11 @@
               Misc
             </div>
             <div class="card-block">
+              <ul>
+                <li v-for="link in misc_links">
+                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -44,10 +64,10 @@
           <div class="card-block">
             <div class="row">
               <div class="col-md-6 text-left">
-                <a href="#" class="btn btn-danger">Reset Results</a>
+                <button v-on:click="reset" class="btn btn-danger">Reset Results</button>
               </div>
               <div class="col-md-6 text-right">
-                <a href="#" class="btn btn-primary">Run</a>
+                <button v-on:click="run" class="btn btn-primary">Run</button>
               </div>
             </div>
           </div>
@@ -58,8 +78,66 @@
 </template>
 
 <script>
-export default {
+import * as api from '../../api/dirb.js'
 
+export default {
+  data () {
+    return {
+      links: [],
+      html_links: [],
+      js_links: [],
+      css_links: [],
+      misc_links: []
+    }
+  },
+  watch: {
+    links: function() {
+      self = this
+      this.html_links = []
+      this.js_links = []
+      this.css_links = []
+      this.misc_links = []
+      this.links.forEach(function (link) {
+        var content_type = link.content_type
+        if (content_type.includes("html"))
+          self.html_links.push(link)
+
+        else if (content_type.includes("javascript"))
+          self.js_links.push(link)
+
+        else if (content_type.includes("css"))
+          self.css_links.push(link)
+
+        else self.misc_links.push(link)
+      })
+    }
+  },
+  methods: {
+    urlToPath: function(url) {
+      return (new URL(url)).pathname
+    },
+    fetch: function() {
+      api.fetch()
+        .then(response => {
+          this.links = response.data
+        })
+    },
+    reset: function() {
+      api.reset().
+        then(response => {
+          this.fetch()
+      })
+    },
+    run: function() {
+      api.run().
+        then(response => {
+          this.fetch()
+      })
+    }
+  },
+  created () {
+    this.fetch()
+  }
 }
 </script>
 
