@@ -3,10 +3,12 @@
 ## requirements
 
 - postgresql 9.6.2
-- ruby
+- ruby ([rbenv](https://github.com/rbenv/rbenv) manage multiple version of ruby)
+- python ([pyenv](https://github.com/pyenv/pyenv) manage multiple version of python)
 - RubyGems
 - gem bundler
 - yarn
+- pip module request
 
 ## install
 
