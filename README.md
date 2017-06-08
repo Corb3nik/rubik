@@ -8,7 +8,7 @@
 - RubyGems
 - gem bundler
 - yarn
-- pip module request
+- pip
 
 ## install
 
@@ -17,6 +17,7 @@ Install dependencies:
 ```bash
 bundle install
 yarn install
+pip install -r requirements.txt
 ```
 
 ## create databases
