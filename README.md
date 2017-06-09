@@ -7,7 +7,7 @@
 - postgresql 9.6.2
 - ruby 2.2.5 ([rbenv](https://github.com/rbenv/rbenv) manage ruby versions)
 - python 3.6.0 ([pyenv](https://github.com/pyenv/pyenv) manage python versions)
-- node.js 7.1.0 ([nvm](https://github.com/creationix/nvm) manage node.js versions)
+- node.js 7.10.0 ([nvm](https://github.com/creationix/nvm) manage node.js versions)
 - RubyGems
 - gem bundler
 - yarn
