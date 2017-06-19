@@ -32,12 +32,15 @@ class Dirb:
         'Run module'
         self.loot['links'] = []
 
-        for uri in self.URIs:
-            url = parse.urljoin(self.root, uri)
-            response = requests.get(url)
+        try:
+          for uri in self.URIs:
+              url = parse.urljoin(self.root, uri)
+              response = requests.get(url)
 
-            if response.status_code != 404:
-                self.loot['links'] += [self.parse_response(response)]
+              if response.status_code != 404:
+                  self.loot['links'] += [self.parse_response(response)]
+        except:
+          pass
 
         if self.output:
             print(json.dumps(self.loot))
