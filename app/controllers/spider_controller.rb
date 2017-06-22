@@ -1,26 +1,24 @@
-class DirbController < ModulesController
-
-  DIRB_FILE = Rails.root.join('lib', 'modules', 'dirb.txt').to_s.freeze()
+class SpiderController < ModulesController
 
   def run
-    dirb = DirbService.new({ root: @project.root, wordlist: DIRB_FILE })
+    spider = SpiderService.new({ root: @project.root })
 
-    json = JSON.parse dirb.run()
+    json = JSON.parse spider.run()
     json['links'].each do |link|
       url = link['url']
       content_type = link['content-type']
-      @project.dirbs.find_or_create_by(url: url, 'content_type': content_type)
+      @project.spiders.find_or_create_by(url: url, 'content_type': content_type)
     end
 
     render json: json
   end
 
   def reset
-    @project.dirbs.delete_all
+    @project.spiders.delete_all
     render json: { status: :success }
   end
 
   def index
-    render json: @project.dirbs
+    render json: @project.spiders
   end
 end

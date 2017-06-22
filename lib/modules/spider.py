@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from html.parser import HTMLParser
-from urllib.request import urlopen
 from urllib import parse
+import requests
 import argparse
 import json
 
@@ -13,11 +13,22 @@ class Spider:
         self.root = root
         self.loot = { }
         self.pagesToVisit = [self.root]
+        self.visitedPages = []
         self.output = output
 
     def add(self, link):
         'Add a link to visit'
         self.pagesToVisit += [link]
+
+    def parse_response(self, response):
+        url = response.url
+        content_type = ''
+        try:
+            content_type = response.headers['content-type']
+        except:
+            pass
+
+        return { "url" : url, "content-type": content_type }
 
     def run(self):
         'Run module'
@@ -30,14 +41,19 @@ class Spider:
             url = pagesToVisit[0]
             pagesToVisit = pagesToVisit[1:]
 
-            self.loot['links'] += [url]
             try:
-                data, links = parser.getLinks(url)
-                for link in set(links):
-                    if self.root in link and link not in self.loot['links']:
-                        pagesToVisit += [link]
-            except:
+                response = requests.get(url)
+                self.visitedPages += [url]
+                if response.status_code != 404:
+                  self.loot['links'] += [self.parse_response(response)]
+                  links = parser.parseLinks(response)
+                  for link in set(links):
+                      if self.root in link and link not in self.visitedPages:
+                          pagesToVisit += [link]
+            except Exception as e:
                 pass
+
+        self.loot['links'] = list({l['url']: l for l in self.loot['links']}.values())
 
         if self.output:
             print(json.dumps(self.loot))
@@ -64,14 +80,11 @@ class LinkParser(HTMLParser):
                     newUrl = newUrl.split("?")[0]
                     self.links = self.links + [newUrl]
 
-    def getLinks(self, url):
+    def parseLinks(self, response):
         self.links = []
-        self.baseUrl = url
-        response = urlopen(url)
-        htmlBytes = response.read()
-        htmlString = htmlBytes.decode('utf-8')
-        self.feed(htmlString)
-        return htmlString, self.links
+        self.baseUrl = response.url
+        self.feed(response.text)
+        return self.links
 
 
 
