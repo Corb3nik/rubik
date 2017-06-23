@@ -6,7 +6,7 @@ class ModulesController < ApplicationController
   end
 
   def spider
-    spider = SpiderService.new({ root: @project.root })
+    spider = SpiderService.new(root: @project.root)
 
     json = JSON.parse spider.run()
     json['links'].each do |link|
