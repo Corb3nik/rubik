@@ -71,7 +71,7 @@ export default {
       api.create_project({name, root})
         .then(response => response.data)
         .then(project => {
-          router.push({ name: 'project', params: { id: project.id }})
+          this.$router.push({ name: 'project', params: { id: project.id }})
         })
         .catch((error) => {
           this.has_errors = true

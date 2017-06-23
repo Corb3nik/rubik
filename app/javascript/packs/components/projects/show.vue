@@ -30,7 +30,7 @@ import * as api from '../../api/modules.js'
 
 export default {
   props: {
-    id: { type: String, require: true },
+    id: { type: [String, Number], require: true },
   },
   data () {
     return {
