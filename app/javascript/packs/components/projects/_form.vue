@@ -57,7 +57,6 @@ export default {
     },
     has_status: function (status) {
       return (status) => {
-        console.log(status, this.status, String(this.status === status));
         return this.status === status
       }
     }
