@@ -17,23 +17,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
+                <tr v-for="result in results">
+                  <th scope="row">{{result.name}}</th>
+                  <td><a target="_blank" :href="result.website">{{result.website}}</a></td>
+                  <td>{{result.category}}</td>
+                  <td>{{result.confidence}}%</td>
                 </tr>
               </tbody>
             </table>
@@ -77,7 +65,7 @@ export default {
     fetch: function() {
       api.fetch()
         .then(response => {
-          this.links = response.data
+          this.results = response.data
         })
     },
     reset: function() {
