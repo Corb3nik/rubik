@@ -29,5 +29,6 @@ export default {
 <style lang="scss">
 .app-content {
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 </style>

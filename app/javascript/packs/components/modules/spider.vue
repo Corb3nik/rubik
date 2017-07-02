@@ -2,60 +2,69 @@
   <div class="dirb">
     <div class="row">
       <div class="col-md-12">
-        <div class="card-group">
-          <div class="card">
-            <div class="card-header">
-              HTML
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in html_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
+
+        <!-- HTML -->
+        <div class="card">
+          <div class="card-header">
+            HTML
           </div>
-          <div class="card">
-            <div class="card-header">
-              JS
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in js_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
+          <div class="card-block">
+            <ul>
+              <li v-for="link in html_links">
+                <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+              </li>
+            </ul>
           </div>
-          <div class="card">
-            <div class="card-header">
-              CSS
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in css_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
+        </div>
+        <br>
+
+        <!-- JS -->
+        <div class="card">
+          <div class="card-header">
+            JS
           </div>
-          <div class="card">
-            <div class="card-header">
-              Misc
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in misc_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
+          <div class="card-block">
+            <ul>
+              <li v-for="link in js_links">
+                <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <br>
+
+        <!-- CSS -->
+        <div class="card">
+          <div class="card-header">
+            CSS
+          </div>
+          <div class="card-block">
+            <ul>
+              <li v-for="link in css_links">
+                <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <br>
+
+        <!-- Misc -->
+        <div class="card">
+          <div class="card-header">
+            Misc
+          </div>
+          <div class="card-block">
+            <ul>
+              <li v-for="link in misc_links">
+                <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <br/>
+    <br>
 
     <div class="row">
       <div class="col-md-12">
