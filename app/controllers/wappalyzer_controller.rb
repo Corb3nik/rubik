@@ -1,10 +1,11 @@
 class WappalyzerController < ModulesController
 
   def run
-    dirb = WappalyzerService.new({ root: @project.root })
+    wappalyzer = WappalyzerService.new({ root: @project.root })
 
-    json = JSON.parse dirb.run()
-    json[:results][:applications].each do |application|
+    json = JSON.parse wappalyzer.run()
+    puts json
+    json['results']['applications'].each do |application|
       name = application['name']
       confidence = application['confidence']
       website = application['website']
@@ -16,7 +17,7 @@ class WappalyzerController < ModulesController
         category: category)
     end
 
-    render json: json[:results][:applications]
+    render json: @project.wappalyzers
   end
 
   def reset

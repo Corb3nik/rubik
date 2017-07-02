@@ -3,6 +3,7 @@
 import argparse
 import subprocess
 import json
+import os
 
 class Wappalyzer:
     'Wappalyzer module'
@@ -15,13 +16,14 @@ class Wappalyzer:
     def run(self):
         'Run module'
         self.loot['results'] = {}
-        p = subprocess.Popen(['node', 'wappalyzer.js', args.root],
+        wappalyzer_js = os.path.dirname(os.path.realpath(__file__)) + "/wappalyzer.js"
+        p = subprocess.Popen(['node', wappalyzer_js, args.root],
           stdout=subprocess.PIPE)
         output = p.stdout.read()
         self.loot['results'] = json.loads(output)
 
         if self.output:
-            print(self.loot)
+            print(json.dumps(self.loot))
 
         return(self.loot)
 
