@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   resources :projects do
     get :dashboard, controller: :modules
-    get :spider, controller: :modules
+
+    get 'spider', controller: :spider, action: :index
+    post 'spider/run', controller: :spider, action: :run
+    post 'spider/reset', controller: :spider, action: :reset
 
     get 'dirb', controller: :dirb, action: :index
     post 'dirb/run', controller: :dirb, action: :run
