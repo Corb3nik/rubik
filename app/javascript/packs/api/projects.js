@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 export function create_project(project) {
-  return axios.post('projects', project)
+  return axios.post('projects', {
+    project
+  })
 }
 
 export function fetch_projects() {
