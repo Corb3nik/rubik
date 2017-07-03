@@ -5,6 +5,7 @@ import ProjectIndex from './components/projects/index.vue'
 import Dashboard from './components/modules/dashboard.vue'
 import Dirb from './components/modules/dirb.vue'
 import Spider from './components/modules/spider.vue'
+import Wappalyzer from './components/modules/wappalyzer.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,12 @@ const routes = [
         name: 'spider',
         props: { default: true },
         component: Spider
+      },
+      {
+        path: 'wappalyzer',
+        name: 'wappalyzer',
+        props: { default: true },
+        component: Wappalyzer
       }
     ]
   },

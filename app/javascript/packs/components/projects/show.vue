@@ -26,6 +26,7 @@
 import Dashboard from '../modules/dashboard.vue'
 import Dirb from '../modules/dirb.vue'
 import Spider from '../modules/spider.vue'
+import Wappalyzer from '../modules/wappalyzer.vue'
 import * as api from '../../api/modules.js'
 
 export default {
@@ -38,6 +39,7 @@ export default {
         { name: "Dashboard", slug: "dashboard" },
         { name: "Directory Buster", slug: "dirb" },
         { name: "Spider", slug: "spider" },
+        { name: "Wappalyzer", slug: "wappalyzer" },
       ]
     }
   }
