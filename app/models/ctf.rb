@@ -1,2 +1,2 @@
-class Ctf < ApplicationRecord
+class CTF < ApplicationRecord
 end

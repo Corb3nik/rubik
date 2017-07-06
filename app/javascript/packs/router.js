@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import CTFShow from './components/ctfs/show.vue'
+import CTFIndex from './components/ctfs/index.vue'
 import ChallengeShow from './components/challenges/show.vue'
 import ChallengeIndex from './components/challenges/index.vue'
 import Dashboard from './components/modules/dashboard.vue'
@@ -12,7 +14,12 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: { name: 'challenges' }
+    redirect: { name: 'ctfs' }
+  },
+  {
+    path: '/ctfs',
+    name: 'ctfs',
+    component: CTFIndex
   },
   {
     path: '/challenges',
@@ -54,7 +61,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/challenges'
+    redirect: '/ctfs'
   }
 ]
 

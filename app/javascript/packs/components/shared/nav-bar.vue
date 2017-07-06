@@ -13,7 +13,7 @@
       <b-nav is-nav-bar>
         <b-nav-item>
           <!-- TODO find the bug why it trigger a render error when passing the `to` props to <b-nav-item> -->
-          <router-link :to="{ name: 'projects' }">
+          <router-link :to="{ name: 'challenges' }">
             Projects
           </router-link>
         </b-nav-item>
