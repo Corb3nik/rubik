@@ -5,7 +5,7 @@
     <b-list-group>
       <b-list-group-item
         v-for="challenge in challenges"
-        :to="challengeToLink(challenge)"
+        :to="challengeToLink(ctf_id, challenge)"
         :key="challenge.id">
         {{ challenge.name }}
       </b-list-group-item>
@@ -19,6 +19,9 @@ import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
 export default {
+  props: {
+      ctf_id: { type: [String, Number], require: true }
+  },
   components: {
     Errors,
     Loading
@@ -38,12 +41,12 @@ export default {
     }
   },
   methods: {
-    challengeToLink: function (challenge) {
-      return `challenges/${challenge.id}`
+    challengeToLink: function (ctf_id, challenge) {
+      return `${ctf_id}/challenges/${challenge.id}`
     },
     fetchData () {
       this.status = 'fetching'
-      api.fetch_challenges()
+      api.fetch_challenges(this.ctf_id)
         .then(response => {
           this.status = 'succeeded'
           this.challenges = response.data

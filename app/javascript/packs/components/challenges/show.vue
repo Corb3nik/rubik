@@ -42,7 +42,7 @@ export default {
         { name: "Wappalyzer", slug: "wappalyzer" },
       ]
     }
-  }
+  },
 }
 </script>
 
