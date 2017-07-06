@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :ctfs
   resources :challenges do
     get :dashboard, controller: :modules
 

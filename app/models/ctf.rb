@@ -1,0 +1,2 @@
+class Ctf < ApplicationRecord
+end

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>CTFs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ctfs.each do |ctf| %>
+      <tr>
+        <td><%= ctf.name %></td>
+        <td><%= link_to 'Show', ctf %></td>
+        <td><%= link_to 'Edit', edit_ctf_path(ctf) %></td>
+        <td><%= link_to 'Destroy', ctf, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ctf', new_ctf_path %>
