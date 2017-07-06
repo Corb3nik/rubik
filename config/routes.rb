@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :projects do
+  resources :challenges do
     get :dashboard, controller: :modules
 
     get 'spider', controller: :spider, action: :index

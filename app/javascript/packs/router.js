@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ProjectShow from './components/projects/show.vue'
-import ProjectIndex from './components/projects/index.vue'
+import ChallengeShow from './components/challenges/show.vue'
+import ChallengeIndex from './components/challenges/index.vue'
 import Dashboard from './components/modules/dashboard.vue'
 import Dirb from './components/modules/dirb.vue'
 import Spider from './components/modules/spider.vue'
@@ -12,17 +12,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: { name: 'projects' }
+    redirect: { name: 'challenges' }
   },
   {
-    path: '/projects',
-    name: 'projects',
-    component: ProjectIndex
+    path: '/challenges',
+    name: 'challenges',
+    component: ChallengeIndex
   },
   {
-    path: '/projects/:id/',
-    name: 'project',
-    component: ProjectShow,
+    path: '/challenges/:id/',
+    name: 'challenge',
+    component: ChallengeShow,
     props: true,
     redirect: { name: 'dashboard' },
     children: [
@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/projects'
+    redirect: '/challenges'
   }
 ]
 

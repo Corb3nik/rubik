@@ -6,11 +6,11 @@ class ModulesController < ApplicationController
   end
 
   def spider
-    spider = SpiderService.new(root: @project.root)
+    spider = SpiderService.new(root: @challenge.root)
 
     json = JSON.parse spider.run()
     json['links'].each do |link|
-      @project.spiders.find_or_create_by(url: link)
+      @challenge.spiders.find_or_create_by(url: link)
     end
 
     render json: json
@@ -19,6 +19,6 @@ class ModulesController < ApplicationController
   private
 
   def load_params
-    @project = Project.find(params[:project_id])
+    @challenge = Challenge.find(params[:challenge_id])
   end
 end

@@ -4,17 +4,17 @@
     <errors v-else-if="has_status('failed')" :errors="errors"/>
     <b-list-group>
       <b-list-group-item
-        v-for="project in projects"
-        :to="projectToLink(project)"
-        :key="project.id">
-        {{ project.name }}
+        v-for="challenge in challenges"
+        :to="challengeToLink(challenge)"
+        :key="challenge.id">
+        {{ challenge.name }}
       </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 
 <script>
-import * as api from '../../api/projects.js'
+import * as api from '../../api/challenges.js'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      projects: [],
+      challenges: [],
       errors: null,
       status: 'idle' // idle, fetching, succeeded, failed
     }
@@ -38,15 +38,15 @@ export default {
     }
   },
   methods: {
-    projectToLink: function (project) {
-      return `projects/${project.id}`
+    challengeToLink: function (challenge) {
+      return `challenges/${challenge.id}`
     },
     fetchData () {
       this.status = 'fetching'
-      api.fetch_projects()
+      api.fetch_challenges()
         .then(response => {
           this.status = 'succeeded'
-          this.projects = response.data
+          this.challenges = response.data
         })
         .catch((error) => {
           this.status = 'failed'

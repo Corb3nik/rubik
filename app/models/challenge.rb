@@ -1,4 +1,4 @@
-class Project < ApplicationRecord
+class Challenge < ApplicationRecord
 
   has_many :spiders
   has_many :dirbs

@@ -1,3 +1,3 @@
 class Spider < ApplicationRecord
-  belongs_to :project
+  belongs_to :challenge
 end

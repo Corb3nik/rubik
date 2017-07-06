@@ -1,7 +1,7 @@
 class WappalyzerController < ModulesController
 
   def run
-    wappalyzer = WappalyzerService.new({ root: @project.root })
+    wappalyzer = WappalyzerService.new({ root: @challenge.root })
 
     json = JSON.parse wappalyzer.run()
     puts json
@@ -11,21 +11,21 @@ class WappalyzerController < ModulesController
       website = application['website']
       category = application['categories'][0]
 
-      @project.wappalyzers.find_or_create_by(name: name,
+      @challenge.wappalyzers.find_or_create_by(name: name,
         confidence: confidence,
         website: website,
         category: category)
     end
 
-    render json: @project.wappalyzers
+    render json: @challenge.wappalyzers
   end
 
   def reset
-    @project.wappalyzers.delete_all
+    @challenge.wappalyzers.delete_all
     render json: { status: :success }
   end
 
   def index
-    render json: @project.wappalyzers
+    render json: @challenge.wappalyzers
   end
 end

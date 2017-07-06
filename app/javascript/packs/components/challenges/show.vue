@@ -1,5 +1,5 @@
 <template>
-  <div class="project">
+  <div class="challenge">
       <div class="row">
         <div class="col-md-3">
           <div class="module-list" v-for="module in modules">
