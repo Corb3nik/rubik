@@ -1,3 +1,2 @@
-# web: bundle exec rails server
 webpack-watcher: ./bin/webpack-watcher
 postgresql: postgres -D /usr/local/var/postgres
