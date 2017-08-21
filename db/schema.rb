@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170706213421) do
+ActiveRecord::Schema.define(version: 20170821130145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20170706213421) do
     t.string "root"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "ctf_id"
+    t.index ["ctf_id"], name: "index_challenges_on_ctf_id"
   end
 
   create_table "ctfs", force: :cascade do |t|
@@ -57,6 +59,7 @@ ActiveRecord::Schema.define(version: 20170706213421) do
     t.index ["challenge_id"], name: "index_wappalyzers_on_challenge_id"
   end
 
+  add_foreign_key "challenges", "ctfs"
   add_foreign_key "dirbs", "challenges"
   add_foreign_key "spiders", "challenges"
   add_foreign_key "wappalyzers", "challenges"

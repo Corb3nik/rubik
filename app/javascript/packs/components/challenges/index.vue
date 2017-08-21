@@ -4,7 +4,7 @@
       <h1>Challenges</h1>
       <challenge-list :ctf_id="ctf_id"></challenge-list>
     </div>
-    <ChallengeForm></ChallengeForm>
+    <ChallengeForm :ctf_id="ctf_id"></ChallengeForm>
   </div>
 </template>
 
@@ -14,8 +14,7 @@ import ChallengeForm from './_form.vue'
 
 export default {
  props: {
-    ctf_id: { type: [String, Number], require: true },
-    id: { type: [String, Number], require: true },
+    ctf_id: { type: [String, Number], require: true }
   },
   components: {
     ChallengeList,

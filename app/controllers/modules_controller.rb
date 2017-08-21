@@ -5,20 +5,10 @@ class ModulesController < ApplicationController
     render json: {}
   end
 
-  def spider
-    spider = SpiderService.new(root: @challenge.root)
-
-    json = JSON.parse spider.run()
-    json['links'].each do |link|
-      @challenge.spiders.find_or_create_by(url: link)
-    end
-
-    render json: json
-  end
-
   private
 
   def load_params
-    @challenge = Challenge.find(params[:challenge_id])
+    @challenge = Challenge.where(ctf_id: params[:ctf_id])
+                          .find(params[:challenge_id])
   end
 end

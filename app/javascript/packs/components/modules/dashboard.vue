@@ -6,7 +6,10 @@
 
 <script>
 export default {
-
+  props: {
+    ctf_id: { type: [String, Number], require: true },
+    challenge_id: { type: [String, Number], require: true }
+  }
 }
 </script>
 

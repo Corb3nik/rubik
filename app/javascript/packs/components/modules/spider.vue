@@ -90,6 +90,10 @@
 import * as api from '../../api/spider.js'
 
 export default {
+  props: {
+    ctf_id: { type: [String, Number], require: true },
+    challenge_id: { type: [String, Number], require: true }
+  },
   data () {
     return {
       links: [],
@@ -126,22 +130,25 @@ export default {
       return (new URL(url)).pathname
     },
     fetch: function() {
-      api.fetch()
+      let { ctf_id, challenge_id } = this
+      api.fetch(ctf_id, challenge_id)
         .then(response => {
           this.links = response.data
         })
     },
     reset: function() {
-      api.reset().
-        then(response => {
+      let { ctf_id, challenge_id } = this
+      api.reset(ctf_id, challenge_id)
+        .then(response => {
           this.fetch()
-      })
+        })
     },
     run: function() {
-      api.run().
-        then(response => {
+      let { ctf_id, challenge_id } = this
+      api.run(ctf_id, challenge_id)
+        .then(response => {
           this.fetch()
-      })
+        })
     }
   },
   created () {

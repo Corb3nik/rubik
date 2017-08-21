@@ -1,9 +1,9 @@
 class SpiderController < ModulesController
 
   def run
-    spider = SpiderService.new({ root: @challenge.root })
+    spider = SpiderService.new(root: @challenge.root)
 
-    json = JSON.parse spider.run()
+    json = JSON.parse spider.run
     json['links'].each do |link|
       url = link['url']
       content_type = link['content-type']

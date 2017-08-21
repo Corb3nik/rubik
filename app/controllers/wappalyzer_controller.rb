@@ -1,20 +1,21 @@
 class WappalyzerController < ModulesController
 
   def run
-    wappalyzer = WappalyzerService.new({ root: @challenge.root })
+    wappalyzer = WappalyzerService.new(root: @challenge.root)
 
-    json = JSON.parse wappalyzer.run()
-    puts json
+    json = JSON.parse wappalyzer.run
     json['results']['applications'].each do |application|
       name = application['name']
       confidence = application['confidence']
       website = application['website']
       category = application['categories'][0]
 
-      @challenge.wappalyzers.find_or_create_by(name: name,
+      @challenge.wappalyzers.find_or_create_by(
+        name: name,
         confidence: confidence,
         website: website,
-        category: category)
+        category: category
+      )
     end
 
     render json: @challenge.wappalyzers

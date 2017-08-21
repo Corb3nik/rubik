@@ -38,6 +38,7 @@ export default {
     Loading
   },
   props: {
+    ctf_id: { type: [String, Number], require: true },
     initialId: { type: [String, Number] },
     initialName: { type: String },
     initialRoot: { type: String }
@@ -68,14 +69,20 @@ export default {
       this[method].call(this)
     },
     create () {
-      let {name, root} = this
+      const { ctf_id, name, root } = this
       this.status = 'creating'
       this.errors = null
-      api.create_challenge({ name, root })
+      api.create_challenge(ctf_id, { name, root })
         .then(response => response.data)
         .then(challenge => {
           this.status = 'succeeded'
-          this.$router.push({ name: 'challenge', params: { id: challenge.id }})
+          this.$router.push({
+            name: 'challenge',
+            params: {
+              ctf_id: ctf_id,
+              challenge_id: challenge.id
+            }
+          })
         })
         .catch((error) => {
           this.status = 'failed'

@@ -4,7 +4,7 @@ class DirbController < ModulesController
   def run
     dirb = DirbService.new(root: @challenge.root, wordlist: DIRB_FILE)
 
-    json = JSON.parse dirb.run()
+    json = JSON.parse dirb.run
     json['links'].each do |link|
       url = link['url']
       content_type = link['content-type']

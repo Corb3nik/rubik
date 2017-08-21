@@ -1,6 +1,6 @@
 <template>
   <div class="challenge">
-    <ChallengeIndex :ctf_id="id"></ChallengeIndex>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -9,9 +9,8 @@ import ChallengeIndex from '../challenges/index.vue'
 
 export default {
   props: {
-    id: { type: [String, Number], require: true },
+    ctf_id: { type: [String, Number], require: true }
   },
-
   components: {
     ChallengeIndex,
   }

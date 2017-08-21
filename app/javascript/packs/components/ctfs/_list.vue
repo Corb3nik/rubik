@@ -63,7 +63,6 @@ export default {
     this.fetchData()
   },
   watch: {
-    // Call again the method if the route changes.
     '$route': 'fetchData'
   }
 }

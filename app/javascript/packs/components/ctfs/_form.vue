@@ -68,7 +68,10 @@ export default {
         .then(response => response.data)
         .then(ctf => {
           this.status = 'succeeded'
-          this.$router.push({ name: 'ctf', params: { id: ctf.id }})
+          this.$router.push({
+            name: 'ctf',
+            params: { ctf_id: ctf.id }
+          })
         })
         .catch((error) => {
           this.status = 'failed'

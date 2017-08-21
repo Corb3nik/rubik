@@ -1,6 +1,7 @@
 class ChallengesController < ApplicationController
   def create
-    @challenge = Challenge.create(challenge_params)
+    ctf = CTF.find(params[:ctf_id])
+    @challenge = ctf.challenges.create(challenge_params)
     if @challenge.errors.any?
       render json: @challenge.errors, status: 412
     else
@@ -9,12 +10,14 @@ class ChallengesController < ApplicationController
   end
 
   def index
-    @challenges = Challenge.all
+    ctf = CTF.find(params[:ctf_id])
+    @challenges = ctf.challenges
     render json: @challenges
   end
 
   def show
-    @challenge = Challenge.find(params[:id])
+    ctf = CTF.find(params[:ctf_id])
+    @challenge = ctf.challenges.find(params[:id])
     render json: @challenge
   end
 

@@ -22,51 +22,53 @@ const routes = [
     component: CTFIndex
   },
   {
-    path: '/ctfs/:id/',
+    path: '/ctfs/:ctf_id/',
     name: 'ctf',
     component: CTFShow,
+    redirect: { name: 'challenges' },
     props: true,
     children: [
       {
         path: 'challenges',
         name: 'challenges',
-        component: ChallengeIndex
-      },
-      {
-        path: 'challenges/:id/',
-        name: 'challenge',
-        component: ChallengeShow,
         props: true,
-        redirect: { name: 'dashboard' },
-        children: [
-          {
-            path: 'dashboard',
-            name: 'dashboard',
-            props: { default: true },
-            component: Dashboard
-          },
-          {
-            path: 'dirb',
-            name: 'dirb',
-            props: { default: true },
-            component: Dirb
-          },
-          {
-            path: 'spider',
-            name: 'spider',
-            props: { default: true },
-            component: Spider
-          },
-          {
-            path: 'wappalyzer',
-            name: 'wappalyzer',
-            props: { default: true },
-            component: Wappalyzer
-          }
-        ]
+        component: ChallengeIndex
       }
     ]
   },
+  {
+    path: '/ctfs/:ctf_id/challenges/:challenge_id/',
+    name: 'challenge',
+    component: ChallengeShow,
+    props: true,
+    redirect: { name: 'dashboard' },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        props: true,
+        component: Dashboard
+      },
+      {
+        path: 'dirb',
+        name: 'dirb',
+        props: true,
+        component: Dirb
+      },
+      {
+        path: 'spider',
+        name: 'spider',
+        props: true,
+        component: Spider
+      },
+      {
+        path: 'wappalyzer',
+        name: 'wappalyzer',
+        props: true,
+        component: Wappalyzer
+      }
+    ]
+  }
 ,
   {
     path: '*',
