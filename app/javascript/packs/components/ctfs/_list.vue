@@ -1,11 +1,11 @@
 <template>
   <div>
     <loading v-if="has_status('fetching')" />
-    <errors v-else-if="has_status('failed')" :errors="errors"/>
+    <errors v-else-if="has_status('failed')"/>
     <b-list-group>
       <b-list-group-item
         v-for="ctf in ctfs"
-        :to="ctfToLink(ctf)"
+        :to="ctf_link(ctf)"
         :key="ctf.id">
         {{ ctf.name }}
       </b-list-group-item>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import * as api from '../../api/ctfs.js'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -23,47 +23,28 @@ export default {
     Errors,
     Loading
   },
-  data () {
-    return {
-      ctfs: [],
-      errors: null,
-      status: 'idle' // idle, fetching, succeeded, failed
-    }
-  },
   computed: {
-    has_status: function (status) {
-      return (status) => {
-        return this.status === status
-      }
-    }
+    ...mapGetters('ctfs', [
+      'ctfs',
+      'has_status'
+    ])
   },
   methods: {
-    ctfToLink: function (ctf) {
-      return `ctfs/${ctf.id}`
+    ...mapActions('ctfs', [
+      'fetch_ctfs'
+    ]),
+    ctf_link: function (ctf) {
+      return `/ctfs/${ctf.id}`
     },
-    fetchData () {
-      this.status = 'fetching'
-      api.fetch_ctfs()
-        .then(response => {
-          this.status = 'succeeded'
-          this.ctfs = response.data
-        })
-        .catch((error) => {
-          this.status = 'failed'
-          if (error.response) {
-            let contentType = error.response.headers['content-type']
-            if (contentType.indexOf('application/json') != -1) {
-              this.errors = error.response.data
-            }
-          }
-        })
+    fetch_data () {
+      this.fetch_ctfs()
     }
   },
   created () {
-    this.fetchData()
+    this.fetch_data()
   },
   watch: {
-    '$route': 'fetchData'
+    '$route': 'fetch_data'
   }
 }
 </script>

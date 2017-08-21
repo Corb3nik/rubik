@@ -1,19 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import ctfs from './modules/ctfs'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-  state: {
-    projects: {},
-    project_id: null
-  },
-  mutations: {},
-  actions: {
-
-  },
-  getters: {},
-  modules: {}
+export default new Vuex.Store({
+  modules: {
+    ctfs
+  }
 })
-
-export default store;
