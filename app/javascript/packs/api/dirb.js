@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-export function fetch() {
-  return axios.get('dirb')
+export function fetch(ctf_id, challenge_id) {
+  return axios.get(`/ctfs/${ctf_id}/challenges/${challenge_id}/dirb`)
 }
 
-export function reset() {
-  return axios.post('dirb/reset')
+export function reset(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/dirb/reset`)
 }
 
-export function run() {
-  return axios.post('dirb/run')
+export function run(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/dirb/run`)
 }

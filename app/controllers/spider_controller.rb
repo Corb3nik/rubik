@@ -1,24 +1,24 @@
 class SpiderController < ModulesController
 
   def run
-    spider = SpiderService.new({ root: @project.root })
+    spider = SpiderService.new(root: @challenge.root)
 
-    json = JSON.parse spider.run()
+    json = JSON.parse spider.run
     json['links'].each do |link|
       url = link['url']
       content_type = link['content-type']
-      @project.spiders.find_or_create_by(url: url, 'content_type': content_type)
+      @challenge.spiders.find_or_create_by(url: url, 'content_type': content_type)
     end
 
     render json: json
   end
 
   def reset
-    @project.spiders.delete_all
+    @challenge.spiders.delete_all
     render json: { status: :success }
   end
 
   def index
-    render json: @project.spiders
+    render json: @challenge.spiders
   end
 end

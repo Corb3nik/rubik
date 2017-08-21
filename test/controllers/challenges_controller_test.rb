@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProjectsControllerTest < ActionDispatch::IntegrationTest
+class ChallengesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

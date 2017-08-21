@@ -56,6 +56,10 @@
 import * as api from '../../api/wappalyzer.js'
 
 export default {
+  props: {
+    ctf_id: { type: [String, Number], require: true },
+    challenge_id: { type: [String, Number], require: true }
+  },
   data () {
     return {
       results: []
@@ -63,20 +67,23 @@ export default {
   },
   methods: {
     fetch: function() {
-      api.fetch()
+      let { ctf_id, challenge_id } = this
+      api.fetch(ctf_id, challenge_id)
         .then(response => {
           this.results = response.data
         })
     },
     reset: function() {
-      api.reset().
-        then(response => {
+      let { ctf_id, challenge_id } = this
+      api.reset(ctf_id, challenge_id)
+        .then(response => {
           this.fetch()
       })
     },
     run: function() {
-      api.run().
-        then(response => {
+      let { ctf_id, challenge_id } = this
+      api.run(ctf_id, challenge_id)
+        .then(response => {
           this.fetch()
       })
     }

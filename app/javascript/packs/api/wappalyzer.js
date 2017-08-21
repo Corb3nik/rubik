@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-export function fetch() {
-  return axios.get('wappalyzer')
+export function fetch(ctf_id, challenge_id) {
+  return axios.get(`/ctfs/${ctf_id}/challenges/${challenge_id}/wappalyzer`)
 }
 
-export function reset() {
-  return axios.post('wappalyzer/reset')
+export function reset(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/wappalyzer/reset`)
 }
 
-export function run() {
-  return axios.post('wappalyzer/run')
+export function run(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/wappalyzer/run`)
 }

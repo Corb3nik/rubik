@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-export function fetch() {
-  return axios.get('spider')
+export function fetch(ctf_id, challenge_id) {
+  return axios.get(`/ctfs/${ctf_id}/challenges/${challenge_id}/spider`)
 }
 
-export function reset() {
-  return axios.post('spider/reset')
+export function reset(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/spider/reset`)
 }
 
-export function run() {
-  return axios.post('spider/run')
+export function run(ctf_id, challenge_id) {
+  return axios.post(`/ctfs/${ctf_id}/challenges/${challenge_id}/spider/run`)
 }

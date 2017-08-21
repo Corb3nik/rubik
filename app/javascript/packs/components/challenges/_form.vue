@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-4 offset-md-2">
-    <h2>New Project</h2>
+    <h2>New Challenge</h2>
     <loading v-if="display_loading" />
     <errors v-if="has_status('failed')" :errors="errors"/>
     <form v-on:submit.prevent="on_submit">
@@ -9,7 +9,7 @@
         type="text"
         v-model="name"
         name="name"
-        placeholder="Project Name">
+        placeholder="Challenge Name">
       </b-form-input>
       <b-form-input
         class="form-control"
@@ -21,14 +21,14 @@
       <input
         class="btn btn-primary"
         type="submit"
-        value="Create project">
+        value="Create challenge">
     </form>
   </div>
 </template>
 
 <script>
 import { isEmpty, includes } from 'lodash'
-import * as api from '../../api/projects.js'
+import * as api from '../../api/challenges.js'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -38,6 +38,7 @@ export default {
     Loading
   },
   props: {
+    ctf_id: { type: [String, Number], require: true },
     initialId: { type: [String, Number] },
     initialName: { type: String },
     initialRoot: { type: String }
@@ -68,14 +69,20 @@ export default {
       this[method].call(this)
     },
     create () {
-      let {name, root} = this
+      const { ctf_id, name, root } = this
       this.status = 'creating'
       this.errors = null
-      api.create_project({ name, root })
+      api.create_challenge(ctf_id, { name, root })
         .then(response => response.data)
-        .then(project => {
+        .then(challenge => {
           this.status = 'succeeded'
-          this.$router.push({ name: 'project', params: { id: project.id }})
+          this.$router.push({
+            name: 'challenge',
+            params: {
+              ctf_id: ctf_id,
+              challenge_id: challenge.id
+            }
+          })
         })
         .catch((error) => {
           this.status = 'failed'

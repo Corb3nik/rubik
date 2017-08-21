@@ -37,8 +37,14 @@ Requirements:
 
 ### running the services
 
-Start rails server, postgresql and webpack dev server.
+Start postgresql and webpack dev server.
 
 ```bash
 bundle exec foreman start -f Procfile.dev
+```
+
+Start rails server. It is easier to debug using [byebug](http://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-byebug-gem) when server process is separated.
+
+```bash
+bin/rails server
 ```

@@ -10,34 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702212302) do
+ActiveRecord::Schema.define(version: 20170821130145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dirbs", force: :cascade do |t|
-    t.bigint "project_id"
-    t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "content_type"
-    t.index ["project_id"], name: "index_dirbs_on_project_id"
-  end
-
-  create_table "projects", force: :cascade do |t|
+  create_table "challenges", force: :cascade do |t|
     t.string "name"
     t.string "root"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "ctf_id"
+    t.index ["ctf_id"], name: "index_challenges_on_ctf_id"
   end
 
-  create_table "spiders", force: :cascade do |t|
-    t.bigint "project_id"
+  create_table "ctfs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dirbs", force: :cascade do |t|
+    t.bigint "challenge_id"
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content_type"
-    t.index ["project_id"], name: "index_spiders_on_project_id"
+    t.index ["challenge_id"], name: "index_dirbs_on_challenge_id"
+  end
+
+  create_table "spiders", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "content_type"
+    t.index ["challenge_id"], name: "index_spiders_on_challenge_id"
   end
 
   create_table "wappalyzers", force: :cascade do |t|
@@ -45,13 +53,14 @@ ActiveRecord::Schema.define(version: 20170702212302) do
     t.string "website"
     t.string "category"
     t.integer "confidence"
-    t.bigint "project_id"
+    t.bigint "challenge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_wappalyzers_on_project_id"
+    t.index ["challenge_id"], name: "index_wappalyzers_on_challenge_id"
   end
 
-  add_foreign_key "dirbs", "projects"
-  add_foreign_key "spiders", "projects"
-  add_foreign_key "wappalyzers", "projects"
+  add_foreign_key "challenges", "ctfs"
+  add_foreign_key "dirbs", "challenges"
+  add_foreign_key "spiders", "challenges"
+  add_foreign_key "wappalyzers", "challenges"
 end
