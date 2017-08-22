@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-md-4">
       <h1>CTFs</h1>
-      <ctf-list></ctf-list>
+      <CTFList></CTFList>
     </div>
-    <ctf-form></ctf-form>
+    <CTFForm></CTFForm>
   </div>
 </template>
 
