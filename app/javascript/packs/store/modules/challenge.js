@@ -1,10 +1,10 @@
 import { get } from 'lodash'
-import * as api from '../../api/ctfs'
+import * as api from '../../api/challenges'
 
 export default {
   namespaced: true,
   state: {
-    ctf: null,
+    challenge: null,
     status: 'idle'
   },
   mutations: {
@@ -13,13 +13,13 @@ export default {
     }
   },
   actions: {
-    fetch_ctf ({ commit }, ctf_id) {
+    fetchChallenge ({ commit }, { ctf_id, challenge_id }) {
       commit('setup', { status: 'fetching' })
-      return api.fetch_ctf(ctf_id)
+      return api.fetch_challenge(ctf_id, challenge_id)
         .then(response => {
-          const ctf = response.data
-          commit('setup', { status: 'succeeded', ctf })
-          return ctf
+          const challenge = response.data
+          commit('setup', { status: 'succeeded', challenge })
+          return challenge
         })
         .catch((error) => {
           commit('setup', { status: 'failed' })
@@ -29,9 +29,6 @@ export default {
   getters: {
     hasStatus: (state) => (status) => {
       return state.status === status
-    },
-    challenges (state) {
-      return get(state, 'ctf.challenges', [])
     }
   }
 }

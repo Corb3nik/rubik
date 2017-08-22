@@ -16,7 +16,9 @@ export default {
       commit('setup', { status: 'fetching' })
       return api.fetch_ctfs()
         .then(response => {
-          commit('setup', { status: 'succeeded', collection: response.data })
+          const collection = response.data
+          commit('setup', { status: 'succeeded', collection })
+          return collection
         })
         .catch((error) => {
           commit('setup', { status: 'failed' })

@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import ctf from './modules/ctf'
 import ctfs from './modules/ctfs'
 import ctfForm from './modules/ctf-form'
+import challenge from './modules/challenge'
 import challengeForm from './modules/challenge-form'
 import dirb from './modules/dirb'
 import spider from './modules/spider'
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     ctf,
     ctfs,
     ctfForm,
+    challenge,
     challengeForm,
     dirb,
     spider,

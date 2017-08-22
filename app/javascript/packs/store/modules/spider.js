@@ -17,7 +17,9 @@ export default {
       commit('setup', { status: 'fetching' })
       return api.fetch(ctf_id, challenge_id)
         .then(response => {
-          commit('setup', { status: 'succeeded', collection: response.data })
+          const collection = response.data
+          commit('setup', { status: 'succeeded', collection })
+          return collection
         })
         .catch((error) => {
           commit('setup', { status: 'failed' })
@@ -28,7 +30,9 @@ export default {
       commit('setup', { status: 'running' })
       return api.run(ctf_id, challenge_id)
         .then(response => {
-          commit('setup', { status: 'succeeded', collection: response.data })
+          const collection = response.data
+          commit('setup', { status: 'succeeded', collection })
+          return collection
         })
         .catch((error) => {
           commit('setup', { status: 'failed' })

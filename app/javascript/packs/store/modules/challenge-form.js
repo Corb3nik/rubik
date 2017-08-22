@@ -39,7 +39,7 @@ export default {
       .then(response => {
         const challenge = response.data
         commit('setup', { status: 'succeeded' })
-        // TODO use response.data to populate store 'challenge'.
+        commit('challenge/setup', { challenge }, { root: true })
         return challenge
       })
       .catch((error) => {

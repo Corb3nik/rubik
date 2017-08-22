@@ -10,6 +10,6 @@ export function fetch_challenges(ctf_id) {
   return axios.get(`/ctfs/${ctf_id}/challenges`)
 }
 
-export function fetch_challenge(ctf_id, id) {
-  return axios.get(`/ctfs/${ctf_id}/challenges/${id}`)
+export function fetch_challenge(ctf_id, challenge_id) {
+  return axios.get(`/ctfs/${ctf_id}/challenges/${challenge_id}`)
 }
