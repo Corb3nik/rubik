@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     ...mapActions('challenge', [
-      'fetchChallenge'
+      'fetchChallengeIfNeeded'
     ]),
     moduleLink (module) {
       return {
@@ -90,7 +90,7 @@ export default {
     },
     fetchData () {
       const { ctf_id, challenge_id } = this
-      this.fetchChallenge({ ctf_id, challenge_id })
+      this.fetchChallengeIfNeeded({ ctf_id, challenge_id })
     }
   },
   created () {

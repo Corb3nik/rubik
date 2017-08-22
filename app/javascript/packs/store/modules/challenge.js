@@ -13,6 +13,10 @@ export default {
     }
   },
   actions: {
+    fetchChallengeIfNeeded ({ dispatch, state }, { ctf_id, challenge_id }) {
+      if (challenge_id == get(state, 'challenge.id')) return
+      return dispatch('fetchChallenge', { ctf_id, challenge_id })
+    },
     fetchChallenge ({ commit }, { ctf_id, challenge_id }) {
       commit('setup', { status: 'fetching' })
       return api.fetch_challenge(ctf_id, challenge_id)
