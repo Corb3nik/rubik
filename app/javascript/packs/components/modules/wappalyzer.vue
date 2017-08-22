@@ -54,11 +54,11 @@ import Loading from '../shared/loading.vue'
 
 export default {
   props: {
-    ctf_id: {
+    ctfId: {
       type: [String, Number],
       require: true
     },
-    challenge_id: {
+    challengeId: {
       type: [String, Number],
       require: true
     }
@@ -83,12 +83,12 @@ export default {
       'run'
     ]),
     handleRunClick () {
-      const { ctf_id, challenge_id } = this
-      this.run({ ctf_id, challenge_id })
+      const { ctfId, challengeId } = this
+      this.run({ ctfId, challengeId })
     },
     fetchData () {
-      const { ctf_id, challenge_id } = this
-      this.fetch({ ctf_id, challenge_id })
+      const { ctfId, challengeId } = this
+      this.fetch({ ctfId, challengeId })
     }
   },
   created () {

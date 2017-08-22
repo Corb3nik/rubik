@@ -21,18 +21,18 @@ const routes = [
     component: CTFIndex
   },
   {
-    path: '/ctfs/:ctf_id/',
+    path: '/ctfs/:ctfId/',
     name: 'ctf',
     component: CTFShow,
     props: true
   },
   {
-    path: '/ctfs/:ctf_id/challenges',
+    path: '/ctfs/:ctfId/challenges',
     name: 'challenges',
     redirect: { name: 'ctf' }
   },
   {
-    path: '/ctfs/:ctf_id/challenges/:challenge_id/',
+    path: '/ctfs/:ctfId/challenges/:challengeId/',
     name: 'challenge',
     component: ChallengeShow,
     props: true,

@@ -44,11 +44,11 @@ import * as api from '../../api/modules.js'
 
 export default {
   props: {
-    ctf_id: {
+    ctfId: {
       type: [String, Number],
       require: true
     },
-    challenge_id: {
+    challengeId: {
       type: [String, Number],
       require: true
     }
@@ -83,14 +83,14 @@ export default {
       return {
         name: module.slug,
         params: {
-          ctf_id: this.ctf_id,
-          challenge_id: this.challenge_id
+          ctfId: this.ctfId,
+          challengeId: this.challengeId
         }
       }
     },
     fetchData () {
-      const { ctf_id, challenge_id } = this
-      this.fetchChallengeIfNeeded({ ctf_id, challenge_id })
+      const { ctfId, challengeId } = this
+      this.fetchChallengeIfNeeded({ ctfId, challengeId })
     }
   },
   created () {

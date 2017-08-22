@@ -12,9 +12,9 @@ export default {
     }
   },
   actions: {
-    fetch_ctfs ({ commit }, ) {
+    fetchCtfs ({ commit }, ) {
       commit('setup', { status: 'fetching' })
-      return api.fetch_ctfs()
+      return api.fetchCtfs()
         .then(response => {
           const collection = response.data
           commit('setup', { status: 'succeeded', collection })
@@ -26,7 +26,7 @@ export default {
     }
   },
   getters: {
-    has_status: (state) => (status) => {
+    hasStatus: (state) => (status) => {
       return state.status === status
     },
     ctfs: state => state.collection

@@ -13,9 +13,9 @@ export default {
     }
   },
   actions: {
-    fetch_ctf ({ commit }, ctf_id) {
+    fetchCtf ({ commit }, ctfId) {
       commit('setup', { status: 'fetching' })
-      return api.fetch_ctf(ctf_id)
+      return api.fetchCtf(ctfId)
         .then(response => {
           const ctf = response.data
           commit('setup', { status: 'succeeded', ctf })

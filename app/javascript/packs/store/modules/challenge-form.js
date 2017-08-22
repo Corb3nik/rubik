@@ -30,12 +30,12 @@ export default {
     }
   },
   actions: {
-    save ({ getters, dispatch }, ctf_id) {
-      return dispatch(getters.action, ctf_id)
+    save ({ getters, dispatch }, ctfId) {
+      return dispatch(getters.action, ctfId)
     },
-    create ({ commit, getters }, ctf_id) {
+    create ({ commit, getters }, ctfId) {
       commit('setup', { status: 'creating' })
-      return api.create_challenge(ctf_id, getters.attributes)
+      return api.create_challenge(ctfId, getters.attributes)
       .then(response => {
         const challenge = response.data
         commit('setup', { status: 'succeeded' })
@@ -52,7 +52,7 @@ export default {
         }
       })
     },
-    update ({ getters }, ctf_id) {
+    update ({ getters }, ctfId) {
       throw 'Not implemented yet'
     }
   },

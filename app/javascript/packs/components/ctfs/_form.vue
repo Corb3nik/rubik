@@ -59,7 +59,7 @@ export default {
           if (!this.hasStatus('succeeded')) return
           this.$router.push({
             name: 'ctf',
-            params: { ctf_id: ctf.id }
+            params: { ctfId: ctf.id }
           })
         })
     }

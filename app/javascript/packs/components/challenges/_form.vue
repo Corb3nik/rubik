@@ -68,8 +68,8 @@ export default {
           this.$router.push({
             name: 'challenge',
             params: {
-              ctf_id: challenge.ctf_id,
-              challenge_id: challenge.id
+              ctfId: challenge.ctf_id,
+              challengeId: challenge.id
             }
           })
         })

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <loading v-if="has_status('fetching')"/>
-    <errors v-if="has_status('failed')"/>
+    <loading v-if="hasStatus('fetching')"/>
+    <errors v-if="hasStatus('failed')"/>
     <b-list-group>
       <b-list-group-item
         v-for="ctf in ctfs"
@@ -26,18 +26,18 @@ export default {
   computed: {
     ...mapGetters('ctfs', [
       'ctfs',
-      'has_status'
+      'hasStatus'
     ])
   },
   methods: {
     ...mapActions('ctfs', [
-      'fetch_ctfs'
+      'fetchCtfs'
     ]),
     ctf_link: function (ctf) {
       return `/ctfs/${ctf.id}`
     },
     fetch_data () {
-      this.fetch_ctfs()
+      this.fetchCtfs()
     }
   },
   created () {

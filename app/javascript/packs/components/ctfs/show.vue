@@ -31,7 +31,7 @@ import ChallengeForm from '../challenges/_form.vue'
 
 export default {
   props: {
-    ctf_id: { type: [String, Number], require: true }
+    ctfId: { type: [String, Number], require: true }
   },
   components: {
     Errors,
@@ -50,11 +50,11 @@ export default {
   },
   methods: {
     ...mapActions('ctf', [
-      'fetch_ctf'
+      'fetchCtf'
     ]),
     fetchData () {
-      if (this.ctf_id === get(this, 'ctf.id')) return
-      this.fetch_ctf(this.ctf_id)
+      if (this.ctfId === get(this, 'ctf.id')) return
+      this.fetchCtf(this.ctfId)
     }
   },
   created () {
