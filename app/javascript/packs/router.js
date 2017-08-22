@@ -27,6 +27,11 @@ const routes = [
     props: true
   },
   {
+    path: '/ctfs/:ctf_id/challenges',
+    name: 'challenges',
+    redirect: { name: 'ctf' }
+  },
+  {
     path: '/ctfs/:ctf_id/challenges/:challenge_id/',
     name: 'challenge',
     component: ChallengeShow,
