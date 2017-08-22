@@ -1,10 +1,9 @@
 <template>
   <div class="col-md-4 offset-md-2">
     <h2>New CTF</h2>
-    <loading v-if="display_loading" />
+    <loading v-if="loading" />
     <errors v-if="hasStatus('failed')" :errors="errors"/>
     <form v-on:submit.prevent="onSubmit">
-      <!-- <input type="text" name="name" :value="name" @input="handleInput" /> -->
       <input
         class="form-control"
         type="text"
@@ -22,8 +21,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
-import { isEmpty, includes } from 'lodash'
-// import * as api from '../../api/ctfs.js'
+import { includes } from 'lodash'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -40,7 +38,7 @@ export default {
     ...mapGetters('ctfForm', [
       'hasStatus'
     ]),
-    display_loading () {
+    loading () {
       return includes(['creating', 'updating'], this.status)
     }
   },
@@ -58,12 +56,13 @@ export default {
     onSubmit (event) {
       this.save()
         .then(ctf => {
+          if (!this.hasStatus('succeeded')) return
           this.$router.push({
             name: 'ctf',
             params: { ctf_id: ctf.id }
           })
         })
-    },
+    }
   }
 }
 </script>
