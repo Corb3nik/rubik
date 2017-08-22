@@ -38,7 +38,7 @@ export default {
       .then(response => {
         const ctf = response.data
         commit('setup', { status: 'succeeded' })
-        // TODO use response.data to populate store 'ctf'.
+        commit('ctf/setup', { ctf }, { root: true })
         return ctf
       })
       .catch((error) => {

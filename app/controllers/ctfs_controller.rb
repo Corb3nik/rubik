@@ -4,7 +4,7 @@ class CTFsController < ApplicationController
     if @ctf.errors.any?
       render json: @ctf.errors, status: 412
     else
-      render json: @ctf
+      render json: @ctf.as_json(include: :challenges)
     end
   end
 
@@ -15,7 +15,7 @@ class CTFsController < ApplicationController
 
   def show
     @ctf = CTF.find(params[:id])
-    render json: @ctf
+    render json: @ctf.as_json(include: :challenges)
   end
 
   private

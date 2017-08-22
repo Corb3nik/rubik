@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-4 offset-md-2">
     <h2>New CTF</h2>
-    <loading v-if="loading" />
+    <loading v-if="loading"/>
     <errors v-if="hasStatus('failed')" :errors="errors"/>
     <form v-on:submit.prevent="onSubmit">
       <input
@@ -39,7 +39,7 @@ export default {
       'hasStatus'
     ]),
     loading () {
-      return includes(['creating', 'updating'], this.status)
+      return this.hasStatus('creating') || this.hasStatus('updating')
     }
   },
   methods: {

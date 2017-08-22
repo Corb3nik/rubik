@@ -25,16 +25,7 @@ const routes = [
     path: '/ctfs/:ctf_id/',
     name: 'ctf',
     component: CTFShow,
-    redirect: { name: 'challenges' },
-    props: true,
-    children: [
-      {
-        path: 'challenges',
-        name: 'challenges',
-        props: true,
-        component: ChallengeIndex
-      }
-    ]
+    props: true
   },
   {
     path: '/ctfs/:ctf_id/challenges/:challenge_id/',

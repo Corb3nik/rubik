@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 offset-md-2">
+  <div>
     <h2>New Challenge</h2>
     <loading v-if="loading" />
     <errors v-if="hasStatus('failed')" :errors="errors"/>
@@ -35,10 +35,10 @@ export default {
     Errors,
     Loading
   },
-  props: {
-    ctf_id: { type: [String, Number], require: true }
-  },
   computed: {
+    ...mapState('ctf', [
+      'ctf'
+    ]),
     ...mapState('challengeForm', [
       'name',
       'errors'
@@ -47,7 +47,7 @@ export default {
       'hasStatus'
     ]),
     loading () {
-      return includes(['creating', 'updating'], this.status)
+      return this.hasStatus('creating') || this.hasStatus('updating')
     }
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
       this.change({ name, value })
     },
     onSubmit (event) {
-      this.save(this.ctf_id)
+      this.save(this.ctf.id)
         .then(challenge => {
           if (!this.hasStatus('succeeded')) return
           this.$router.push({
