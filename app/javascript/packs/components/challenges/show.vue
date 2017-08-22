@@ -7,12 +7,11 @@
               tag="button"
               class="module-btn btn btn-secondary btn-md"
               active-class="active"
-              :to="module_link(module)">
+              :to="moduleLink(module)">
               {{ module.name }}
             </router-link>
           </div>
         </div>
-
         <div class="col-md-9">
           <div class="current-module">
             <router-view></router-view>
@@ -23,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex'
 import Dashboard from '../modules/dashboard.vue'
 import Dirb from '../modules/dirb.vue'
 import Spider from '../modules/spider.vue'
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    module_link (module) {
+    moduleLink (module) {
       return {
         name: module.slug,
         params: {

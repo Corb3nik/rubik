@@ -1,6 +1,6 @@
 <template>
-  <div class="dirb">
-    <div class="row">
+  <div class="wappalyzer">
+    <div class="row wappalyzer-card">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -30,69 +30,78 @@
       </div>
     </div>
 
-    <br/>
-
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">Actions</div>
-          <div class="card-block">
-            <div class="row">
-              <div class="col-md-6 text-left">
-                <button v-on:click="reset" class="btn btn-danger">Reset Results</button>
-              </div>
-              <div class="col-md-6 text-right">
-                <button v-on:click="run" class="btn btn-primary">Run</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button
+          class="btn btn-primary"
+          :disabled="loading"
+          @click="handleRunClick">
+          Run
+        </button>
+      </div>
+      <div class="col-md-12">
+        <loading v-if="loading"/>
+        <errors v-if="hasStatus('failed')"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as api from '../../api/wappalyzer.js'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
+import Errors from '../shared/errors.vue'
+import Loading from '../shared/loading.vue'
 
 export default {
   props: {
-    ctf_id: { type: [String, Number], require: true },
-    challenge_id: { type: [String, Number], require: true }
-  },
-  data () {
-    return {
-      results: []
+    ctf_id: {
+      type: [String, Number],
+      require: true
+    },
+    challenge_id: {
+      type: [String, Number],
+      require: true
     }
   },
+  components: {
+    Errors,
+    Loading
+  },
+  computed: {
+    ...mapState('wappalyzer', [
+      'errors'
+    ]),
+    ...mapGetters('wappalyzer', [
+      'hasStatus',
+      'loading',
+      'results'
+    ])
+  },
   methods: {
-    fetch: function() {
-      let { ctf_id, challenge_id } = this
-      api.fetch(ctf_id, challenge_id)
-        .then(response => {
-          this.results = response.data
-        })
+    ...mapActions('wappalyzer', [
+      'fetch',
+      'run'
+    ]),
+    handleRunClick () {
+      const { ctf_id, challenge_id } = this
+      this.run({ ctf_id, challenge_id })
     },
-    reset: function() {
-      let { ctf_id, challenge_id } = this
-      api.reset(ctf_id, challenge_id)
-        .then(response => {
-          this.fetch()
-      })
-    },
-    run: function() {
-      let { ctf_id, challenge_id } = this
-      api.run(ctf_id, challenge_id)
-        .then(response => {
-          this.fetch()
-      })
+    fetchData () {
+      const { ctf_id, challenge_id } = this
+      this.fetch({ ctf_id, challenge_id })
     }
   },
   created () {
-    this.fetch()
+    this.fetchData()
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>
 
 <style>
+.wappalyzer-card {
+  margin-bottom: 15px;
+}
 </style>

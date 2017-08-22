@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading v-if="has_status('fetching')"/>
-    <errors v-else-if="has_status('failed')"/>
+    <errors v-if="has_status('failed')"/>
     <b-list-group>
       <b-list-group-item
         v-for="ctf in ctfs"
