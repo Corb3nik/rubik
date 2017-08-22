@@ -22,12 +22,6 @@ class WappalyzerController < ModulesController
     render json: @challenge.wappalyzers
   end
 
-  # TODO: is the really necessary if we destroy wappalyzers before run?
-  def reset
-    @challenge.wappalyzers.delete_all
-    render json: { status: :success }
-  end
-
   def index
     render json: @challenge.wappalyzers
   end

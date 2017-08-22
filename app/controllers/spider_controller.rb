@@ -14,12 +14,6 @@ class SpiderController < ModulesController
     render json: @challenge.spiders
   end
 
-  # TODO: is the really necessary if we destroy spiders before run?
-  def reset
-    @challenge.spiders.delete_all
-    render json: { status: :success }
-  end
-
   def index
     render json: @challenge.spiders
   end

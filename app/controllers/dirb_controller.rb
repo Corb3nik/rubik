@@ -15,12 +15,6 @@ class DirbController < ModulesController
     render json: @challenge.dirbs
   end
 
-  # TODO: is the really necessary if we destroy dirbs before run?
-  def reset
-    @challenge.dirbs.delete_all
-    render json: { status: :success }
-  end
-
   def index
     render json: @challenge.dirbs
   end
