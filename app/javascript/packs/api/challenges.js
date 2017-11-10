@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-export function create_challenge(ctf_id, attributes) {
-  return axios.post(`/ctfs/${ctf_id}/challenges`, {
+export function create_challenge(ctfId, attributes) {
+  return axios.post(`/ctfs/${ctfId}/challenges`, {
     challenge: attributes
   })
 }
 
-export function fetch_challenges(ctf_id) {
-  return axios.get(`/ctfs/${ctf_id}/challenges`)
+export function fetchChallenges(ctfId) {
+  return axios.get(`/ctfs/${ctfId}/challenges`)
 }
 
-export function fetch_challenge(ctf_id, id) {
-  return axios.get(`/ctfs/${ctf_id}/challenges/${id}`)
+export function fetchChallenge(ctfId, challengeId) {
+  return axios.get(`/ctfs/${ctfId}/challenges/${challengeId}`)
 }

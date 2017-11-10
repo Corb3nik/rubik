@@ -1,5 +1,4 @@
 class DirbService
-
   SCRIPT = Rails.root.join('lib', 'modules', 'dirb.py').to_s.freeze()
 
   def initialize(params)
@@ -7,11 +6,12 @@ class DirbService
     @wordlist = Shellwords.escape(params[:wordlist])
   end
 
-  def run()
+  def run
+    Rails.logger.info 'Running DirbService...'
     begin
       `python3 #{SCRIPT} #{@root} #{@wordlist}`
     rescue
-      ""
+      ''
     end
   end
 end

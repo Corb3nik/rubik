@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import CTFShow from './components/ctfs/show.vue'
 import CTFIndex from './components/ctfs/index.vue'
 import ChallengeShow from './components/challenges/show.vue'
-import ChallengeIndex from './components/challenges/index.vue'
 import Dashboard from './components/modules/dashboard.vue'
 import Dirb from './components/modules/dirb.vue'
 import Spider from './components/modules/spider.vue'
@@ -22,22 +21,18 @@ const routes = [
     component: CTFIndex
   },
   {
-    path: '/ctfs/:ctf_id/',
+    path: '/ctfs/:ctfId/',
     name: 'ctf',
     component: CTFShow,
-    redirect: { name: 'challenges' },
-    props: true,
-    children: [
-      {
-        path: 'challenges',
-        name: 'challenges',
-        props: true,
-        component: ChallengeIndex
-      }
-    ]
+    props: true
   },
   {
-    path: '/ctfs/:ctf_id/challenges/:challenge_id/',
+    path: '/ctfs/:ctfId/challenges',
+    name: 'challenges',
+    redirect: { name: 'ctf' }
+  },
+  {
+    path: '/ctfs/:ctfId/challenges/:challengeId/',
     name: 'challenge',
     component: ChallengeShow,
     props: true,

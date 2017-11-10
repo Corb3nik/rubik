@@ -1,6 +1,7 @@
 class WappalyzerController < ModulesController
 
   def run
+    @challenge.wappalyzers.delete_all
     wappalyzer = WappalyzerService.new(root: @challenge.root)
 
     json = JSON.parse wappalyzer.run
@@ -19,11 +20,6 @@ class WappalyzerController < ModulesController
     end
 
     render json: @challenge.wappalyzers
-  end
-
-  def reset
-    @challenge.wappalyzers.delete_all
-    render json: { status: :success }
   end
 
   def index

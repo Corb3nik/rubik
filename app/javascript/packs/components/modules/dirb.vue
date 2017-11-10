@@ -2,151 +2,109 @@
   <div class="dirb">
     <div class="row">
       <div class="col-md-12">
-        <div class="card-group">
-          <div class="card">
+        <template v-for="(links, category) in linksByCategory">
+          <div class="card dirb-category">
             <div class="card-header">
-              HTML
+              {{ category }}
             </div>
             <div class="card-block">
               <ul>
-                <li v-for="link in html_links">
+                <li v-for="link in links">
                   <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header">
-              JS
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in js_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              CSS
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in css_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              Misc
-            </div>
-            <div class="card-block">
-              <ul>
-                <li v-for="link in misc_links">
-                  <a target="_blank" :href="link.url">{{ urlToPath(link.url) }}</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        </template>
       </div>
     </div>
 
-    <br/>
-
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">Actions</div>
-          <div class="card-block">
-            <div class="row">
-              <div class="col-md-6 text-left">
-                <button v-on:click="reset" class="btn btn-danger">Reset Results</button>
-              </div>
-              <div class="col-md-6 text-right">
-                <button v-on:click="run" class="btn btn-primary">Run</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button
+          class="btn btn-primary"
+          :disabled="loading"
+          @click="handleRunClick">
+          Run
+        </button>
+      </div>
+      <div class="col-md-12">
+        <loading v-if="loading"/>
+        <errors v-if="hasStatus('failed')"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import * as api from '../../api/dirb.js'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
+import Errors from '../shared/errors.vue'
+import Loading from '../shared/loading.vue'
 
 export default {
   props: {
-    ctf_id: { type: [String, Number], require: true },
-    challenge_id: { type: [String, Number], require: true }
-  },
-  data () {
-    return {
-      links: [],
-      html_links: [],
-      js_links: [],
-      css_links: [],
-      misc_links: []
+    ctfId: {
+      type: [String, Number],
+      require: true
+    },
+    challengeId: {
+      type: [String, Number],
+      require: true
     }
   },
-  watch: {
-    links: function() {
-      self = this
-      this.html_links = []
-      this.js_links = []
-      this.css_links = []
-      this.misc_links = []
-      this.links.forEach(function (link) {
-        var content_type = link.content_type
-        if (content_type.includes("html"))
-          self.html_links.push(link)
-
-        else if (content_type.includes("javascript"))
-          self.js_links.push(link)
-
-        else if (content_type.includes("css"))
-          self.css_links.push(link)
-
-        else self.misc_links.push(link)
-      })
+  components: {
+    Errors,
+    Loading
+  },
+  computed: {
+    ...mapState('dirb', [
+      'errors'
+    ]),
+    ...mapGetters('dirb', [
+      'hasStatus',
+      'loading',
+      'jsLinks',
+      'cssLinks',
+      'htmlLinks',
+      'miscLinks'
+    ]),
+    linksByCategory () {
+      return {
+        'HTML': this.htmlLinks,
+        'JavaScript': this.jsLinks,
+        'CSS': this.cssLinks,
+        'Misc': this.miscLinks
+      }
     }
   },
   methods: {
-    urlToPath: function(url) {
+    ...mapActions('dirb', [
+      'fetch',
+      'run'
+    ]),
+    urlToPath (url) {
       return (new URL(url)).pathname
     },
-    fetch: function() {
-      let { ctf_id, challenge_id } = this
-      api.fetch(ctf_id, challenge_id)
-        .then(response => {
-          this.links = response.data
-        })
+    handleRunClick () {
+      const { ctfId, challengeId } = this
+      this.run({ ctfId, challengeId })
     },
-    reset: function() {
-      let { ctf_id, challenge_id } = this
-      api.reset(ctf_id, challenge_id)
-        .then(response => {
-          this.fetch()
-      })
-    },
-    run: function() {
-      let { ctf_id, challenge_id } = this
-      api.run(ctf_id, challenge_id)
-        .then(response => {
-          this.fetch()
-      })
+    fetchData () {
+      const { ctfId, challengeId } = this
+      this.fetch({ ctfId, challengeId })
     }
   },
   created () {
-    this.fetch()
+    this.fetchData()
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>
 
 <style>
+.dirb-category {
+  margin-bottom: 15px;
+}
 </style>

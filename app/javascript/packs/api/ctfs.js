@@ -6,10 +6,10 @@ export function create_ctf(attributes) {
   })
 }
 
-export function fetch_ctfs() {
+export function fetchCtfs() {
   return axios.get('/ctfs')
 }
 
-export function fetch_ctf(id) {
+export function fetchCtf(id) {
   return axios.get(`/ctfs/${id}`)
 }

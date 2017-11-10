@@ -1,23 +1,21 @@
 <template>
-  <div class="col-md-4 offset-md-2">
+  <div>
     <h2>New Challenge</h2>
-    <loading v-if="display_loading" />
-    <errors v-if="has_status('failed')" :errors="errors"/>
-    <form v-on:submit.prevent="on_submit">
-      <b-form-input
+    <loading v-if="loading" />
+    <errors v-if="hasStatus('failed')" :errors="errors"/>
+    <form v-on:submit.prevent="onSubmit">
+      <input
         class="form-control"
         type="text"
-        v-model="name"
+        @input="handleInput"
         name="name"
-        placeholder="Challenge Name">
-      </b-form-input>
-      <b-form-input
+        placeholder="Challenge Name"/>
+      <input
         class="form-control"
         type="text"
-        v-model="root"
+        @input="handleInput"
         name="root"
-        placeholder="Root URL">
-      </b-form-input>
+        placeholder="Root URL"/>
       <input
         class="btn btn-primary"
         type="submit"
@@ -27,8 +25,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 import { isEmpty, includes } from 'lodash'
-import * as api from '../../api/challenges.js'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -37,67 +35,46 @@ export default {
     Errors,
     Loading
   },
-  props: {
-    ctf_id: { type: [String, Number], require: true },
-    initialId: { type: [String, Number] },
-    initialName: { type: String },
-    initialRoot: { type: String }
-  },
-  data: function () {
-    return {
-      id: this.initialId,
-      name: this.initialName,
-      root: this.initialRoot,
-      errors: null,
-      status: 'idle' // idle, creating, updating, succeeded, failed
-    }
-  },
   computed: {
-    display_loading () {
-      return includes(['creating', 'updating'], this.status)
-    },
-    has_status: function (status) {
-      return (status) => {
-        return this.status === status
-      }
+    ...mapState('ctf', [
+      'ctf'
+    ]),
+    ...mapState('challengeForm', [
+      'name',
+      'errors'
+    ]),
+    ...mapGetters('challengeForm', [
+      'hasStatus'
+    ]),
+    loading () {
+      return this.hasStatus('creating') || this.hasStatus('updating')
     }
   },
   methods: {
-    on_submit (event) {
-      if (this.loading) return
-      const method = isEmpty(this.id) ? 'create' : 'update'
-      this[method].call(this)
+    ...mapMutations('challengeForm', [
+      'change'
+    ]),
+    ...mapActions('challengeForm', [
+      'save'
+    ]),
+    handleInput (event) {
+      const { name, value } = event.target
+      this.change({ name, value })
     },
-    create () {
-      const { ctf_id, name, root } = this
-      this.status = 'creating'
-      this.errors = null
-      api.create_challenge(ctf_id, { name, root })
-        .then(response => response.data)
+    onSubmit (event) {
+      this.save(this.ctf.id)
         .then(challenge => {
-          this.status = 'succeeded'
+          if (!this.hasStatus('succeeded')) return
           this.$router.push({
             name: 'challenge',
             params: {
-              ctf_id: ctf_id,
-              challenge_id: challenge.id
+              ctfId: challenge.ctf_id,
+              challengeId: challenge.id
             }
           })
         })
-        .catch((error) => {
-          this.status = 'failed'
-          if (error.response) {
-            let contentType = error.response.headers['content-type']
-            if (contentType.indexOf('application/json') != -1) {
-              this.errors = error.response.data
-            }
-          }
-        })
-    },
-    update () {
-      throw 'Not implemented yet'
     }
-  },
+  }
 }
 </script>
 

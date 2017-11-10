@@ -1,16 +1,16 @@
 <template>
   <div class="col-md-4 offset-md-2">
     <h2>New CTF</h2>
-    <loading v-if="display_loading" />
-    <errors v-if="has_status('failed')" :errors="errors"/>
-    <form v-on:submit.prevent="on_submit">
-      <b-form-input
+    <loading v-if="loading"/>
+    <errors v-if="hasStatus('failed')" :errors="errors"/>
+    <form v-on:submit.prevent="onSubmit">
+      <input
         class="form-control"
         type="text"
-        v-model="name"
         name="name"
-        placeholder="CTF Name">
-      </b-form-input>
+        :value="name"
+        @input="handleInput"
+        placeholder="CTF Name"/>
       <input
         class="btn btn-primary"
         type="submit"
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import { isEmpty, includes } from 'lodash'
-import * as api from '../../api/ctfs.js'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
+import { includes } from 'lodash'
 import Errors from '../shared/errors.vue'
 import Loading from '../shared/loading.vue'
 
@@ -30,63 +30,40 @@ export default {
     Errors,
     Loading
   },
-  props: {
-    initialId: { type: [String, Number] },
-    initialName: { type: String },
-    initialRoot: { type: String }
-  },
-  data: function () {
-    return {
-      id: this.initialId,
-      name: this.initialName,
-      root: this.initialRoot,
-      errors: null,
-      status: 'idle' // idle, creating, updating, succeeded, failed
-    }
-  },
   computed: {
-    display_loading () {
-      return includes(['creating', 'updating'], this.status)
-    },
-    has_status: function (status) {
-      return (status) => {
-        return this.status === status
-      }
+    ...mapState('ctfForm', [
+      'name',
+      'errors'
+    ]),
+    ...mapGetters('ctfForm', [
+      'hasStatus'
+    ]),
+    loading () {
+      return this.hasStatus('creating') || this.hasStatus('updating')
     }
   },
   methods: {
-    on_submit (event) {
-      if (this.loading) return
-      const method = isEmpty(this.id) ? 'create' : 'update'
-      this[method].call(this)
+    ...mapMutations('ctfForm', [
+      'change'
+    ]),
+    ...mapActions('ctfForm', [
+      'save'
+    ]),
+    handleInput (event) {
+      const { name, value } = event.target
+      this.change({ name, value })
     },
-    create () {
-      let {name, root} = this
-      this.status = 'creating'
-      this.errors = null
-      api.create_ctf({ name, root })
-        .then(response => response.data)
+    onSubmit (event) {
+      this.save()
         .then(ctf => {
-          this.status = 'succeeded'
+          if (!this.hasStatus('succeeded')) return
           this.$router.push({
             name: 'ctf',
-            params: { ctf_id: ctf.id }
+            params: { ctfId: ctf.id }
           })
         })
-        .catch((error) => {
-          this.status = 'failed'
-          if (error.response) {
-            let contentType = error.response.headers['content-type']
-            if (contentType.indexOf('application/json') != -1) {
-              this.errors = error.response.data
-            }
-          }
-        })
-    },
-    update () {
-      throw 'Not implemented yet'
     }
-  },
+  }
 }
 </script>
 
